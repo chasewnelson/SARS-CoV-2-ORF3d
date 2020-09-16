@@ -89,13 +89,27 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 		2. `INFILE_READS`: file with read data
 		3. `WIN_SIZE`: size of the sliding window
 		4. `READ_LEN`: length of reads to consider.
-	* **Output**. A `.TSV` table giving the sum of reads in each frame for each condition and position (start of window).
+	* **Output**. 
+		1. Table in `.tsv` format giving the sum of reads in each frame for each condition and position (start of window).
 	* **Example**:
 
 		`Rscript riboseq_sliding_window.R frames_table.txt mapped_reads_by_readlength_ALL.tsv 30 30`
 
 
+### <a name="figure-3"></a>Figure 3. SARS-CoV-2 protein sequence properties
 
+* `generate_random_protein.py` (*command-line script*)
+	* **Description**. Script to generate random protein sequences of a given length from an input proteome in FASTA format.
+	* **Requirements**. Python packages Bio, Bio.Seq, Bio.SeqRecord, os, random, sys
+	* **Input**. Unnamed arguments in the following order: 
+		1. input file with peptide sequence in FASTA format
+		2. length of peptide to generate
+		3. number of peptides to generate
+	* **Output**. 
+		1. Multiple sequence alignment in FASTA format containing the randomized protein sequence(s).
+	* **Example**:
+
+		`generate_random_protein.py ORF3d_aa.fasta 57 1000`
 
 
 ## <a name="acknowledgments"></a>Acknowledgments
