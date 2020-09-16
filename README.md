@@ -5,6 +5,7 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 
 ## <a name="contents"></a>Contents
 
+* [Supplementary data](#supplementary-data)
 * [Supplementary scripts](#supplementary-scripts)
 	* [**Figure 1**. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members.](#figure-1)
 	* [**Figure 2**. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets.](#figure-2)
@@ -18,6 +19,15 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 * [Citation](#citation)
 * [Contact](#contact)
 * [References](#references)
+
+
+## <a name="supplementary-data"></a>Supplementary data
+
+The following supplementary data are provided in this GitHub repository:
+
+1. `SARS-related-CoV_ALN.fasta`: the whole-genome multiple sequence alignment (between-taxa analysis) of *n*=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus*. See [manuscript](#citation) for details. Note that the pangolin-CoV GD/1 sequence has been masked as `N`, because GISAID permission is required for data access.
+2. `SARS-related-CoV_ALN.gtf`: Gene Transfer Format (GTF) file giving gene positions within `SARS-related-CoV_ALN.fasta`.
+3. `Supplementary_Tables.xlsx`: Supplementary Tables referred to in the [manuscript](#citation).
 
 
 ## <a name="supplementary-scripts"></a>Supplementary scripts
@@ -34,9 +44,9 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 	* **Description**. XXX.
 	* **Requirements**. XXX.
 	* **Input**.
-		* `frameshift_results.txt`
+		1. `frameshift_results.txt`
 	* **Intermediate files**.
-		* `ORF_length_heatmap_data.tsv`
+		1. `ORF_length_heatmap_data.tsv`
 	* **Output**. XXX.
 	* **Example**:
 
@@ -48,19 +58,26 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 * `fig1B.bash` (*command-line script*)
 	* **Description**. Produces Figure1B using PyGenomeTracks.
 	* **Requirements**. PyGenomeTracks, Seqkit.
-	* **Input**. The following files need to be in the working directory: (1) multi fasta file `Sarbecovirus_n21_ALN_FINAL_v2.fasta`; (2) GTF file with gene positions, `Sarbecovirus_n21_ALN_FINAL_v3.gtf`; (3) Newick tree for sarbecovirus alignment, `sbc_rename2.nw`; (4) parameters file `parameters_input.txt`; and (5) parameter file `parameters_input2.txt`.
-	* **Output**. `Fig1b.png`.
+	* **Input**. The following files need to be in the working directory: 
+		1. `SARS-related-CoV_ALN.fasta`: multiple alignment FASTA file of n=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus*. Note that the pangolin-CoV GD/1 sequence has been masked as `N`, because GISAID permission is required for data access.
+		2. `SARS-related-CoV_ALN.gtf`: Gene Transfer Format (GTF) file giving gene positions within `SARS-related-CoV_ALN.fasta`.
+		3. `sbc_rename2.nw`: Newick tree for sarbecovirus alignment **!!TODO: Zac, I need this <--**
+		4. `parameters_input.txt` **!!TODO: Zac, I need this <--**
+		5. `parameters_input2.txt` **!!TODO: Zac, I need this <--**
+	* **Output**. 
+		1. `Fig1b.png`
 	* **Example**:
 
 		`fig1B.bash`
+
 
 * `ORF_length.R` (*manual analysis script*)
 	* **Description**. Analyze the genome-wide ORF length results of the Schlub et al. (2018) codon permutation method and produce Figure 1—figure supplement 1.
 	* **Requirements**. tidyverse, RColorBrewer, ggrepel, patchwork.
 	* **Input**. 
-		* `frameshift_results.txt`, produced by `frameshift_analysis.bash`.
+		1. `frameshift_results.txt`, produced by `frameshift_analysis.bash`.
 	* **Output**. 
-		* `ORF_length_heatmap_data.tsv`, p-values for each internal overlapping gene within a previously annotated gene, redundatly annotated on site-by-site basis.
+		1. `ORF_length_heatmap_data.tsv`, p-values for each internal overlapping gene within a previously annotated gene, redundatly annotated on site-by-site basis.
 
 
 ### <a name="figure-2"></a>Figure 2. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets
