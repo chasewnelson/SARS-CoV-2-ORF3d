@@ -6,8 +6,14 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 ## <a name="contents"></a>Contents
 
 * [Supplementary scripts](#supplementary-scripts)
-	* [Figure 1](#figure-1)
-	* [Figure 2](#figure-2)
+	* [**Figure 1**. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members.](#figure-1)
+	* [**Figure 2**. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets.](#figure-2)
+	* [**Figure 3**. SARS-CoV-2 protein sequence properties.](#figure-3)
+	* [**Figure 4**. Amino acid variation in proteins encoded by genes overlapping *ORF3a* in viruses of the species *Severe acute respiratory syndrome-related coronavirus*.](#figure-4)
+	* [**Figure 5**. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels.](#figure-5)
+	* [**Figure 6**. Between-taxa sliding window analysis of natural selection on overlapping frames of *ORF3a*.](#figure-6)
+	* [**Figure 7**. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF.](#figure-7)
+	* [**Figure 8**. High-frequency within-host mutations.](#figure-8)
 * [Acknowledgments](#acknowledgments)
 * [Citation](#citation)
 * [Contact](#contact)
@@ -20,22 +26,44 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 
 1. ***Command-line*** scripts are intended to be executed from the bash command line with the specified arguments. 
 
-2. ***Manual execution*** scripts are R scripts or Python Jupyter Notebooks documenting the bulk of our data analyses and visualizations. These are intended to be executed manually line-by-line in R/RStudio or Jupyter. The use should replace path names and arguments with the appropriate values for the user's analysis and directories.
+2. ***Manual analysis*** scripts are R scripts or Python Jupyter Notebooks documenting the bulk of our data analyses and visualizations. These are intended to be executed manually line-by-line in R/RStudio or Jupyter. The use should replace path names and arguments with the appropriate values for the user's analysis and directories.
 
 
-### <a name="figure-1"></a>Figure 1
+### TEMPLATE
+1. `name.py` (*command-line script*)
+	* **Description**. XXX.
+	* **Requirements**. XXX.
+	* **Input**.
+		* `frameshift_results.txt`
+	* **Intermediate files**.
+		* `ORF_length_heatmap_data.tsv`
+	* **Output**. XXX.
+	* **Example**:
+
+		`XXX`
+		
+
+### <a name="figure-1"></a>Figure 1. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members
 
 1. `fig1B.bash` (*command-line script*)
-	* **Decription**. Produces Figure1B using “PyGenomeTracks”.
-	* **Input**. The following files need to be in the working directory: (1) multi fasta file Sarbecovirus_n21_ALN_FINAL_v2.fasta; (2) GTF file with gene positions, Sarbecovirus_n21_ALN_FINAL_v3.gtf; (3) Newick tree for sarbecovirus alignment, sbc_rename2.nw; (4) parameters file parameters_input.txt; and (5) parameter file parameters_input2.txt.
-	* **Output**. Fig1b.png.
+	* **Description**. Produces Figure1B using PyGenomeTracks.
 	* **Requirements**. PyGenomeTracks, Seqkit.
+	* **Input**. The following files need to be in the working directory: (1) multi fasta file `Sarbecovirus_n21_ALN_FINAL_v2.fasta`; (2) GTF file with gene positions, `Sarbecovirus_n21_ALN_FINAL_v3.gtf`; (3) Newick tree for sarbecovirus alignment, `sbc_rename2.nw`; (4) parameters file `parameters_input.txt`; and (5) parameter file `parameters_input2.txt`.
+	* **Output**. `Fig1b.png`.
 	* **Example**:
 
 		`fig1B.bash`
 
+2. `ORF_length.R` (*manual analysis script*)
+	* **Description**. Analyze the genome-wide ORF length results of the Schlub et al. (2018) codon permutation method and produce .
+	* **Requirements**. tidyverse, RColorBrewer, ggrepel, patchwork.
+	* **Input**. 
+		* `frameshift_results.txt`, produced by `frameshift_analysis.bash`.
+	* **Output**. 
+		* `ORF_length_heatmap_data.tsv`, p-values for each internal overlapping gene within a previously annotated gene, redundatly annotated on site-by-site basis.
 
-### <a name="figure-2"></a>Figure 2
+
+### <a name="figure-2"></a>Figure 2. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets
 
 1. `SARSCOV2_ribo_seq_batch.R` (*command-line script*)
 	* **Description**. Sliding window script to calculate proportion of reads in each frame for a specified read length and window size, separately for each treatment combination.
@@ -75,4 +103,5 @@ Other correspondence should be addressed to the corresponding authors:
 
 ## <a name="references"></a>References
 
-* Nelson CW, Ardern Z, Wei X. 2020. <a target="_blank" href="https://academic.oup.com/mbe/article/37/8/2440/5815567">OLGenie: Estimating Natural Selection to Predict Functional Overlapping Genes</a>. *Molecular Biology and Evolution* **37**(8):2440–2449. doi: https://doi.org/10.1093/molbev/msaa087
+* Nelson CW, Ardern Z, Wei X. 2020. <a target="_blank" href="https://academic.oup.com/mbe/article/37/8/2440/5815567">OLGenie: estimating natural selection to predict functional overlapping genes</a>. *Molecular Biology and Evolution* **37**(8):2440–2449. doi: https://doi.org/10.1093/molbev/msaa087
+* Schlub TE, Buchmann JP, Holmes EC. 2018. <a target="_blank" href="https://academic.oup.com/mbe/article/35/10/2572/5067730">A simple method to detect candidate overlapping genes in viruses using single genome sequences</a>. *Molecular Biology and Evolution* **35**(10):2572–2581. doi: https://doi.org/10.1093/molbev/msy155
