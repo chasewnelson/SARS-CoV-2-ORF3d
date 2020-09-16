@@ -30,7 +30,7 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 
 
 ### TEMPLATE
-1. `name.py` (*command-line script*)
+* `name.py` (*command-line script*)
 	* **Description**. XXX.
 	* **Requirements**. XXX.
 	* **Input**.
@@ -45,7 +45,7 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 
 ### <a name="figure-1"></a>Figure 1. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members
 
-1. `fig1B.bash` (*command-line script*)
+* `fig1B.bash` (*command-line script*)
 	* **Description**. Produces Figure1B using PyGenomeTracks.
 	* **Requirements**. PyGenomeTracks, Seqkit.
 	* **Input**. The following files need to be in the working directory: (1) multi fasta file `Sarbecovirus_n21_ALN_FINAL_v2.fasta`; (2) GTF file with gene positions, `Sarbecovirus_n21_ALN_FINAL_v3.gtf`; (3) Newick tree for sarbecovirus alignment, `sbc_rename2.nw`; (4) parameters file `parameters_input.txt`; and (5) parameter file `parameters_input2.txt`.
@@ -54,8 +54,8 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 
 		`fig1B.bash`
 
-2. `ORF_length.R` (*manual analysis script*)
-	* **Description**. Analyze the genome-wide ORF length results of the Schlub et al. (2018) codon permutation method and produce .
+* `ORF_length.R` (*manual analysis script*)
+	* **Description**. Analyze the genome-wide ORF length results of the Schlub et al. (2018) codon permutation method and produce Figure 1—figure supplement 1.
 	* **Requirements**. tidyverse, RColorBrewer, ggrepel, patchwork.
 	* **Input**. 
 		* `frameshift_results.txt`, produced by `frameshift_analysis.bash`.
@@ -65,13 +65,20 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 
 ### <a name="figure-2"></a>Figure 2. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets
 
-1. `SARSCOV2_ribo_seq_batch.R` (*command-line script*)
+* `riboseq_sliding_window.R` (*command-line script*)
 	* **Description**. Sliding window script to calculate proportion of reads in each frame for a specified read length and window size, separately for each treatment combination.
-	* **Input**. Unnamed arguments in this order: (1) `INFILE_FRAMES`, file with condition metadata for samples; (2) `INFILE_READS`, file with read data; (3) `WIN_SIZE`, size of the sliding window; and (4) `READ_LEN`, length of reads to consider.
+	* **Input**. Unnamed arguments in the following order: 
+		1. `INFILE_FRAMES`: file with condition metadata for samples
+		2. `INFILE_READS`: file with read data
+		3. `WIN_SIZE`: size of the sliding window
+		4. `READ_LEN`: length of reads to consider.
 	* **Output**. A `.TSV` table giving the sum of reads in each frame for each condition and position (start of window).
 	* **Example**:
 
-		`Rscript SARSCOV2_ribo_seq_batch.R frames_table.txt mapped_reads_by_readlength_ALL.tsv 29 28`
+		`Rscript riboseq_sliding_window.R frames_table.txt mapped_reads_by_readlength_ALL.tsv 30 30`
+
+
+
 
 
 ## <a name="acknowledgments"></a>Acknowledgments
