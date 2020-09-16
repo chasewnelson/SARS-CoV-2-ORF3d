@@ -112,6 +112,19 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 		`generate_random_protein.py ORF3d_aa.fasta 57 1000`
 
 
+* `tally_epitope_coverage.py` (*command-line script*)
+	* **Description**. Script for tallying epitope coverage for one protein product in a sliding window.
+	* **Requirements**. Python packages os, sys
+	* **Input**. Two unnamed arguments in the following order: 
+		1. input file in `.tsv` format; NetMHCPan output file with 5 columns in this order: ID, NB (number MHC alleles bound based on NetMHCPan output), product, codon_start, codon_end 
+		2. length (integer) of linear peptides used in the epitope analysis (9 for MHC I with NetMHCPan; 15 for MHC II with NetMHCIIPan)
+	* **Output**. 
+		1. Table in `.tsv` format giving the sum of bound epitopes overlapping each site.
+	* **Example**:
+
+		`tally_epitope_coverage.py ORF3d_random.tsv 9`
+
+
 ## <a name="acknowledgments"></a>Acknowledgments
 
 This work was supported by a Postdoctoral Research Fellowship from Academia Sinica (to C.W.N. under P.I. Wen-Hsiung Li); funding from the Bavarian State Government and National Philanthropic Trust (to Z.A. under P.I. Siegfried Scherer); NSF IOS grants #1755370 and #1758800 (to S.-O.K.); and the University of Wisconsin-Madison John D. MacArthur Professorship Chair (to T.L.G). The authors thank the GISAID platform and the originating and submitting laboratories who kindly uploaded SARS-CoV-2 sequences to the GISAID EpiCov™ Database for public access (Supplement). The authors thank Maciej F. Boni, Reed A. Cartwright, John Flynn, Kyle Friend, Dan Graur, Robert S. Harbert, Cheryl Hayashi, David G. Karlin, Niloufar Kavian, Kin-Hang (Raven) Kok, Wen-Hsiung Li, Meiyeh Lu, David A. Matthews, Lisa Mirabello, Apurva Narechania, Felix Li Jin, and attendees of the UC Berkeley popgen journal club for useful information and discussion; Andrew E. Firth, Alexander Gorbalenya, Irwin Jungreis, Manolis Kellis, Raven Kok, Angelo Pavesi, Kei Sato, Manuela Sironi, and Noam Stern-Ginossar for an invaluable discussion regarding standardizing nomenclature; Helen Piontkivska, Patricia Wittkopp, Antonis Rokas, and one anonymous reviewer for critical suggestions; Ming-Hsueh Lin for immense feedback on figures; and special thanks to Priya Moorjani, Jacob Tennessen, Montgomery Slatkin, Yun S. Song, Jianzhi George Zhang, Xueying Li, Hongxiang Zheng, Qinqin Yu, Meredith Yeager, and Michael Dean for commenting on earlier drafts of the manuscript.
