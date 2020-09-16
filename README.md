@@ -37,7 +37,7 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 
 ### <a name="figure-2"></a>Figure 2
 
-1. `SARSCOV2_ribo_seq_batch.R`. (*command-line script*)
+1. `SARSCOV2_ribo_seq_batch.R` (*command-line script*)
 	* **Description**. Sliding window script to calculate proportion of reads in each frame for a specified read length and window size, separately for each treatment combination.
 	* **Input**. Unnamed arguments in this order: (1) `INFILE_FRAMES`, file with condition metadata for samples; (2) `INFILE_READS`, file with read data; (3) `WIN_SIZE`, size of the sliding window; and (4) `READ_LEN`, length of reads to consider.
 	* **Output**. A `.TSV` table giving the sum of reads in each frame for each condition and position (start of window).
