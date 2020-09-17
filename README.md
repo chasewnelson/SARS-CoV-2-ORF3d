@@ -25,6 +25,7 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 		* `filter_vcf.py`: apply a binomial false-discovery rate correction to within-host variants
 		* `summarize_intrahost_by_site.py`: create a genome database cataloguing within-host variants
 	* [**Additional scripts**](#additional-scripts).
+		* `extract_fasta_by_sites.pl`: extracts gene regions of a multiple sequence alignment
 		* `extract_seq_subset.py`: extract a subset of sequences from a FASTA
 		* `translate_nt_seq_file.pl`: translate a file of protein-coding nucleotide sequences
 * [Acknowledgments](#acknowledgments)
@@ -197,6 +198,19 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 
 
 ### <a name="additional-scripts"></a>Additional scripts
+
+* `extract_fasta_by_sites.pl` (*command-line script*)
+	* **Description**. Script to extract (excise; cut out) regions of a multiple sequence alignment, e.g., pull out specific genes.
+	* **Requirements**. Perl
+	* **Input**. Two unnamed arguments in the following order: 
+		1. a FASTA file containing containing one or more aligned sequences 
+		2. a`.gtf` file containing CDS products to extract. They need not really be CDS, but should be labelled as such in the file.	Only works for forward-strand (+) products.
+	* **Output**. 
+		1. one FASTA file for each CDS record in the GTF file. Just the DNA segment corresponding to the CDS coordinates of each record will be present in the resulting FASTA files.
+	* **Example**:
+
+		`extract_fasta_by_sites.pl Wuhan_Hu_1.fasta Wuhan_Hu_1.gtf`
+
 
 * `extract_seq_subset.py` (*command-line script*)
 	* **Description**.  Script for extracting a subset of sequences from a FASTA based on header ID.
