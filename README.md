@@ -11,6 +11,7 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 		* `fig1B.bash`
 		* `ORF_length.R`: analyze ORF lengths to produce Figure 1—figure supplement 1
 	* [**Figure 2**. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets](#figure-2).
+		* `aligned_fasta2haplotypes.pl`: determine all existing haplotypes in a set of sequences to compile a list of peptide search queries
 		* `riboseq_sliding_window.R`: calculate proportion of ribosome profiling reads in each frame
 	* [**Figure 3**. SARS-CoV-2 protein sequence properties](#figure-3).
 		* `generate_random_protein.py`: generate random proteins given amino acid content
@@ -92,6 +93,17 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 
 
 ### <a name="figure-2"></a>Figure 2. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets
+
+* `aligned_fasta2haplotypes.pl` (*command-line script*)
+	* **Description**. Script to determine all existing haplotypes in a set of sequences. Output used as a list of peptide search queries in mass spectrometry.
+	* **Input**. Unnamed arguments in the following order: 
+		1. A FASTA file containing a multiple sequence amino acid alignment of one protein product of interest
+	* **Output**. 
+		1. To STDOUT, prints a two-column `.tsv` table: column 1 contain contains the number of occurrences (*n*) of the haplotype; column 2 contains the haplotype sequence itself
+	* **Example**:
+
+		`aligned_fasta2haplotypes.pl SARSCOV2_ORF3d_aa.fasta`
+
 
 * `riboseq_sliding_window.R` (*command-line script*)
 	* **Description**. Sliding window script to calculate proportion of reads in each frame for a specified read length and window size, separately for each treatment combination.
