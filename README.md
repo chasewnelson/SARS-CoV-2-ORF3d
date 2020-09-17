@@ -12,7 +12,7 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 * [Supplementary scripts](#supplementary-scripts)
 	* [**Figure 1**. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members](#figure-1).
 		* `fig1B.bash`
-		* `ORF_length.R`: analyze ORF lengths to produce Figure 1—figure supplement 1
+		* `ORF_length.R`: analyze ORF lengths for analysis in Figure 1—figure supplement 1
 	* [**Figure 2**. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets](#figure-2).
 		* `aligned_fasta2haplotypes.pl`: determine all existing haplotypes in a set of sequences to compile a list of peptide search queries
 		* `riboseq_sliding_window.R`: calculate proportion of ribosome profiling reads in each frame
@@ -21,6 +21,7 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 		* `tally_epitope_coverage.py`: tally epitope coverage in a sliding window
 	* [**Figure 4**. Amino acid variation in proteins encoded by genes overlapping *ORF3a* in viruses of the species *Severe acute respiratory syndrome-related coronavirus*](#figure-4).
 	* [**Figure 5**. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels](#figure-5).
+		* `extract_seqs_by_timepoint.py`: extract SARS-CoV-2 GISAID sequences by timepoint in a sliding window for analysis in Figure 5—figure supplement 2
 		* `generate_seqs_from_VCF.py`: generate <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> input for within-host analysis
 		* `SARS-CoV-2_locate_genes.pl`: automatically find the coordinates of each SARS-CoV-2 gene in a nucleotide multiple sequence alignment
 	* [**Figure 6**. Between-taxa sliding window analysis of natural selection on overlapping frames of *ORF3a*](#figure-6).
@@ -167,6 +168,20 @@ tally_epitope_coverage.py ORF3d_random.tsv 9
 
 
 ### <a name="figure-5"></a>Figure 5. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels
+
+* `extract_seqs_by_timepoint.py` (*command-line script*)
+	* **Description**. Script to extract SARS-CoV-2 GISAID sequences by timepoint in a sliding window for analysis in Figure 5—figure supplement 2. Sliding window size (14 days) and step size (7 days) may be changed in the code. Day 0 is taken to be the earliest date on or following 2019/12/20; sequences sampled at earlier dates will be excluded.
+	* **Requirements**. Python packages Bio, datetime, os, sys
+	* **Input**. Two unnamed arguments in the following order: 
+		1. the GISAID acknowledgements table, saved as a `.tsv` file; this contains the sampling dates of each sequence. The script expects the sequence ID in column 1 (index 0) and  the date in column 4 (index 3)
+		2. a `.fasta` multiple sequence alignment file, where the headers are the GISAID IDs, *i.e.*, they match the accession IDs in the GISAID table
+	* **Output**. 
+		1. One `*.fasta` multiple sequence alignment file for each 14 day window, containing just those sequences sampled during that period. For example, the first file will have the name `*_0to14.fasta` (window 1), the second file will have the name `*_7to21.fasta` (window 2), and so on.
+	* **Example**:
+
+```Shell
+extract_seqs_by_timepoint.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2_ALN.fasta
+```
 
 * `generate_seqs_from_VCF.py` (*command-line script*)
 	* **Description**. Script to generate a `.fasta` with randomly interspersed variants (from VCF), for use with <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> (Nelson et al. 2020) or any software that requires a multiple sequence alignment input and does not depend upon linkage.
