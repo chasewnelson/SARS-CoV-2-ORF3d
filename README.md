@@ -9,22 +9,22 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 * [Supplementary scripts](#supplementary-scripts)
 	* [**Figure 1**. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members](#figure-1).
 		* `fig1B.bash`
-		* `ORF_length.R`
+		* `ORF_length.R`: analyze ORF lengths to produce Figure 1—figure supplement 1
 	* [**Figure 2**. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets](#figure-2).
-		* `riboseq_sliding_window.R`
+		* `riboseq_sliding_window.R`: calculate proportion of ribosome profiling reads in each frame
 	* [**Figure 3**. SARS-CoV-2 protein sequence properties](#figure-3).
-		* `generate_random_protein.py`
-		* `tally_epitope_coverage.py`
+		* `generate_random_protein.py`: generate random proteins given amino acid content
+		* `tally_epitope_coverage.py`: tally epitope coverage in a sliding window
 	* [**Figure 4**. Amino acid variation in proteins encoded by genes overlapping *ORF3a* in viruses of the species *Severe acute respiratory syndrome-related coronavirus*](#figure-4).
 	* [**Figure 5**. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels](#figure-5).
-		* `generate_seqs_from_VCF.py`
+		* `generate_seqs_from_VCF.py`: generate OLGenie input for within-host analysis
 	* [**Figure 6**. Between-taxa sliding window analysis of natural selection on overlapping frames of *ORF3a*](#figure-6).
 	* [**Figure 7**. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF](#figure-7).
 	* [**Figure 8**. High-frequency within-host mutations](#figure-8).
-		* `filter_vcf.py`
-		* `summarize_intrahost_by_site.py`
+		* `filter_vcf.py`: apply a binomial false-discovery rate correction to within-host variants
+		* `summarize_intrahost_by_site.py`: create a genome database cataloguing within-host variants
 	* [**Additional scripts**](#additional-scripts).
-		* `extract_seq_subset.py`
+		* `extract_seq_subset.py`: extract a subset of sequences from a FASTA
 * [Acknowledgments](#acknowledgments)
 * [Citation](#citation)
 * [Contact](#contact)
@@ -155,7 +155,7 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 * `filter_VCF.py` (*command-line script*)
 	* **Description**. Script to dynamically filter within-host variants using a binomial cutoff to control for a user-defined false-discovery rate (FDR). Automatically detects and analyzes all `.vcf` (variant call format) files in the working directory.
 	* **Requirements**. Python packages Bio, numpy, os, random, re, scipy.stats, sys
-	* **Input**. Five unnamed arguments in the following order: 
+	* **Input**. One or more `.vcf` files in the working directory, and five unnamed arguments in the following order: 
 		1. analysis-wide FDR cutoff (integer): the maximum absolute number of false-positive variants called across all VCF files examined
 		2. the minimum allowed minor allele frequency (numeric), independent of FDR
 		3. genome length (integer)
@@ -169,18 +169,18 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 		`filter_VCF.py 1 0 29903 0.002 401`
 
 
-```
 * `summarize_intrahost_by_site.py` (*command-line script*)
-	* **Description**.  Script for extracting a subset of sequences from a FASTA based on header ID.
-	* **Requirements**. Python packages Bio, os, sys
-	* **Input**. Two unnamed arguments in the following order: 
-		1. a text file containing exactly one column of sequence IDs (FASTA headers) 
-		2. a multiple sequence alignment of nucleotides in FASTA format	* **Output**. 
-		1. A multiple sequence alignment in FASTA format based on the file given by argument 2, but including only those sequences with headers provided in the file given by argument 1.
+	* **Description**. Script to create a genome database cataloguing within-host variants. Automatically detects and analyzes all `.vcf` (variant call format) files in the working directory.
+	* **Requirements**. Python packages Bio, Bio.alphabet, Bio.seq, os, re, sys
+	* **Input**. One or more `.vcf` files in the working directory, and two unnamed arguments in the following order: 
+		1. A FASTA file containing exactly one (1) reference sequence (*e.g.*, SARS-CoV-2 Wuhan-Hu-1)
+		2. A `.gtf` file containing containing genes to be annotated in the output table, with up to two genes overlapping each site (others will be ignored)
+	* **Output**. 
+		1. An output file by the name `*_site_database.tsv`. There are four rows for each position in the genome (defined by input 1), corresponding to each of the four possible nucleotide changes (including self-nucleotide). For example, a position with A in the reference (REF), there will four possible single nucleotide changes (ALT): A (self), C, G, and T. Each row is also labelled with up to two genes overlapping the site, and the codon, codon position, and amino acid encoded by each gene. Finally, each column following the metadata is a sample, giving the number of `REF,ALT` reads in that same at that position, if its VCF file contains a record. Note that the beginning of the file is largely unpopulated, as the first rows correspond to the 5'-UTR region lacking genes and coverage.
 	* **Example**:
 
-		`extract_seq_subset.py seq_ID_list.txt SARS-COV-2_ALN.fasta`
-```
+		`summarize_intrahost_by_site.py NC_045512.fasta NC_045512.gtf`
+
 
 
 ### <a name="additional-scripts"></a>Additional scripts
