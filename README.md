@@ -24,6 +24,7 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 		* `SARS-CoV-2_locate_genes.pl`: automatically find the coordinates of each SARS-CoV-2 gene in a nucleotide multiple sequence alignment
 		* `generate_seqs_from_VCF.py`: generate <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> input for within-host analysis
 		* `extract_seqs_by_timepoint.py`: extract SARS-CoV-2 GISAID sequences by timepoint in a sliding window for analysis in Figure 5—figure supplement 2
+		* `extract_seqs_by_location.py`: extract sequences by location for location-specific timepoint analyses in Figure 5—figure supplement 2
 		* `temporal_pi.R`: calculate and plot nucleotide diversity (*π*) and location entropy as a function of time for Figure 5—figure supplement 2
 		
 	* [**Figure 6**. Between-taxa sliding window analysis of natural selection on overlapping frames of *ORF3a*](#figure-6).
@@ -210,6 +211,22 @@ generate_seqs_from_VCF.py reference.fasta variants.vcf 1000
 
 ```Shell
 extract_seqs_by_timepoint.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2_ALN.fasta
+```
+
+* `extract_seqs_by_location.py` (*command-line script*)
+	* **Description**. Script to extract SARS-CoV-2 GISAID sequences by location for analysis in Figure 5—figure supplement 2.
+	* **Requirements**. Python packages Bio, datetime, os, sys
+	* **Input**. Four unnamed arguments in the following order: 
+		1. the GISAID acknowledgements table, saved as a `.tsv` file; this contains the sampling dates of each sequence. The script expects the sequence ID in column 1 (index 0) and  the date in column 4 (index 3)
+		2. a `.fasta` multiple sequence alignment file, where the headers are the GISAID IDs, *i.e.*, they match the accession IDs in the GISAID table
+		3. name of desired output file
+		4. location, *i.e.*, string to detect in `Location` columns
+	* **Output**. 
+		1. One `*.fasta` multiple sequence alignment file with the name given but input argument 3 above, containing only those sequences matching the location given in argument 4 above.
+	* **Example**:
+
+```Shell
+extract_seqs_by_location.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2_ALN.fasta SARS-CoV-2_ALN_Asia.fasta Asia
 ```
 
 * `temporal_pi.R` (*manual analysis script*)
