@@ -21,9 +21,11 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 		* `tally_epitope_coverage.py`: tally epitope coverage in a sliding window
 	* [**Figure 4**. Amino acid variation in proteins encoded by genes overlapping *ORF3a* in viruses of the species *Severe acute respiratory syndrome-related coronavirus*](#figure-4).
 	* [**Figure 5**. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels](#figure-5).
-		* `extract_seqs_by_timepoint.py`: extract SARS-CoV-2 GISAID sequences by timepoint in a sliding window for analysis in Figure 5—figure supplement 2
-		* `generate_seqs_from_VCF.py`: generate <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> input for within-host analysis
 		* `SARS-CoV-2_locate_genes.pl`: automatically find the coordinates of each SARS-CoV-2 gene in a nucleotide multiple sequence alignment
+		* `generate_seqs_from_VCF.py`: generate <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> input for within-host analysis
+		* `extract_seqs_by_timepoint.py`: extract SARS-CoV-2 GISAID sequences by timepoint in a sliding window for analysis in Figure 5—figure supplement 2
+		* `temporal_pi.R`: calculate and plot nucleotide diversity (*π*) and location entropy as a function of time for Figure 5—figure supplement 2
+		
 	* [**Figure 6**. Between-taxa sliding window analysis of natural selection on overlapping frames of *ORF3a*](#figure-6).
 	* [**Figure 7**. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF](#figure-7).
 		* `extract_variable_columns_MSA.py`: identify variable sites in a nucleotide multiple sequence alignment
@@ -169,18 +171,17 @@ tally_epitope_coverage.py ORF3d_random.tsv 9
 
 ### <a name="figure-5"></a>Figure 5. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels
 
-* `extract_seqs_by_timepoint.py` (*command-line script*)
-	* **Description**. Script to extract SARS-CoV-2 GISAID sequences by timepoint in a sliding window for analysis in Figure 5—figure supplement 2. Sliding window size (14 days) and step size (7 days) may be changed in the code. Day 0 is taken to be the earliest date on or following 2019/12/20; sequences sampled at earlier dates will be excluded.
-	* **Requirements**. Python packages Bio, datetime, os, sys
-	* **Input**. Two unnamed arguments in the following order: 
-		1. the GISAID acknowledgements table, saved as a `.tsv` file; this contains the sampling dates of each sequence. The script expects the sequence ID in column 1 (index 0) and  the date in column 4 (index 3)
-		2. a `.fasta` multiple sequence alignment file, where the headers are the GISAID IDs, *i.e.*, they match the accession IDs in the GISAID table
+* `SARS-CoV-2_locate_genes.pl` (*command-line script*)
+	* **Description**. Script to locate gene start and stop sites by finding the first sequences beginning and ending with (hardcoded) nucleotide sequences taken from the reference sequence: https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3. The code itself is a useful resource, as it contains the beginning and ending of most genes.
+	* **Requirements**. Perl
+	* **Input**. Three unnamed arguments in the following order: 
+		1. A `.fasta` file containing a multiple sequence alignment of SARS-CoV-2 whole-genome nucleotide sequences. Note that the script may fail for alignments with gaps or highly diverged from the Wuhan-Hu-1 genotype.	
 	* **Output**. 
-		1. One `*.fasta` multiple sequence alignment file for each 14 day window, containing just those sequences sampled during that period. For example, the first file will have the name `*_0to14.fasta` (window 1), the second file will have the name `*_7to21.fasta` (window 2), and so on.
+		1. To STDOUT, prints a `.gtf` file containing gene coordinates. Note that some genes may be missed if the alignment contains sequences highly diverged from SARS-CoV-2.
 	* **Example**:
 
 ```Shell
-extract_seqs_by_timepoint.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2_ALN.fasta
+SARS-CoV-2_locate_genes.pl SARS-CoV-2_ALN.fasta
 ```
 
 * `generate_seqs_from_VCF.py` (*command-line script*)
@@ -197,17 +198,18 @@ extract_seqs_by_timepoint.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2
 generate_seqs_from_VCF.py reference.fasta variants.vcf 1000
 ```
 
-* `SARS-CoV-2_locate_genes.pl` (*command-line script*)
-	* **Description**. Script to locate gene start and stop sites by finding the first sequences beginning and ending with (hardcoded) nucleotide sequences taken from the reference sequence: https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3. The code itself is a useful resource, as it contains the beginning and ending of most genes.
-	* **Requirements**. Perl
-	* **Input**. Three unnamed arguments in the following order: 
-		1. A `.fasta` file containing a multiple sequence alignment of SARS-CoV-2 whole-genome nucleotide sequences. Note that the script may fail for alignments with gaps or highly diverged from the Wuhan-Hu-1 genotype.	
+* `extract_seqs_by_timepoint.py` (*command-line script*)
+	* **Description**. Script to extract SARS-CoV-2 GISAID sequences by timepoint in a sliding window for analysis in Figure 5—figure supplement 2. Sliding window size (14 days) and step size (7 days) may be changed in the code. Day 0 is taken to be the earliest date on or following 2019/12/20; sequences sampled at earlier dates will be excluded.
+	* **Requirements**. Python packages Bio, datetime, os, sys
+	* **Input**. Two unnamed arguments in the following order: 
+		1. the GISAID acknowledgements table, saved as a `.tsv` file; this contains the sampling dates of each sequence. The script expects the sequence ID in column 1 (index 0) and  the date in column 4 (index 3)
+		2. a `.fasta` multiple sequence alignment file, where the headers are the GISAID IDs, *i.e.*, they match the accession IDs in the GISAID table
 	* **Output**. 
-		1. To STDOUT, prints a `.gtf` file containing gene coordinates. Note that some genes may be missed if the alignment contains sequences highly diverged from SARS-CoV-2.
+		1. One `*.fasta` multiple sequence alignment file for each 14 day window, containing just those sequences sampled during that period. For example, the first file will have the name `*_0to14.fasta` (window 1), the second file will have the name `*_7to21.fasta` (window 2), and so on.
 	* **Example**:
 
 ```Shell
-SARS-CoV-2_locate_genes.pl SARS-CoV-2_ALN.fasta
+extract_seqs_by_timepoint.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2_ALN.fasta
 ```
 
 * `temporal_pi.R` (*manual analysis script*)
