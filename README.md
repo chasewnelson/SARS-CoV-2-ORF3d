@@ -1,11 +1,15 @@
 # SARS-CoV-2 *ORF3d*
 
-Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
+Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 
 
 ## <a name="contents"></a>Contents
 
 * [Supplementary data](#supplementary-data)
+	* `SARS-related-CoV_ALN.fasta`: whole-genome multiple sequence alignment of *n*=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus* (between-taxa analysis)
+	* `SARS-related-CoV_ALN.gtf`: a `.gtf.` file giving gene positions within `SARS-related-CoV_ALN.fasta`
+	* `Supplementary_Tables.xlsx`: Supplementary Tables referred to in the [manuscript](#citation)
+
 * [Supplementary scripts](#supplementary-scripts)
 	* [**Figure 1**. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members](#figure-1).
 		* `fig1B.bash`
@@ -28,9 +32,13 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 		* `extract_fasta_by_sites.pl`: extracts gene regions of a multiple sequence alignment
 		* `extract_seq_subset.py`: extract a subset of sequences from a FASTA
 		* `translate_nt_seq_file.pl`: translate a file of protein-coding nucleotide sequences
+
 * [Acknowledgments](#acknowledgments)
+
 * [Citation](#citation)
+
 * [Contact](#contact)
+
 * [References](#references)
 
 
@@ -38,8 +46,10 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 
 The following supplementary data are provided in this GitHub repository:
 
-1. `SARS-related-CoV_ALN.fasta`: the whole-genome multiple sequence alignment (between-taxa analysis) of *n*=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus*. See [manuscript](#citation) for details. Note that the pangolin-CoV GD/1 sequence has been masked as `N`, because GISAID permission is required for data access.
+1. `SARS-related-CoV_ALN.fasta`: whole-genome multiple sequence alignment of *n*=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus* (between-taxa analysis). See [manuscript](#citation) for details. Note that the pangolin-CoV GD/1 sequence has been masked as `N`, because GISAID permission is required for data access.
+
 2. `SARS-related-CoV_ALN.gtf`: Gene Transfer Format (GTF) file giving gene positions within `SARS-related-CoV_ALN.fasta`.
+
 3. `Supplementary_Tables.xlsx`: Supplementary Tables referred to in the [manuscript](#citation).
 
 
