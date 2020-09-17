@@ -18,7 +18,7 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 		* `tally_epitope_coverage.py`: tally epitope coverage in a sliding window
 	* [**Figure 4**. Amino acid variation in proteins encoded by genes overlapping *ORF3a* in viruses of the species *Severe acute respiratory syndrome-related coronavirus*](#figure-4).
 	* [**Figure 5**. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels](#figure-5).
-		* `generate_seqs_from_VCF.py`: generate OLGenie input for within-host analysis
+		* `generate_seqs_from_VCF.py`: generate <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> input for within-host analysis
 	* [**Figure 6**. Between-taxa sliding window analysis of natural selection on overlapping frames of *ORF3a*](#figure-6).
 	* [**Figure 7**. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF](#figure-7).
 	* [**Figure 8**. High-frequency within-host mutations](#figure-8).
@@ -63,7 +63,9 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 	* **Output**. XXX.
 	* **Example**:
 
-		`XXX`
+```Shell
+XXX
+```
 		
 
 ### <a name="figure-1"></a>Figure 1. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members
@@ -81,7 +83,9 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 		1. `Fig1b.png`
 	* **Example**:
 
-		`fig1B.bash`
+```Shell
+fig1B.bash
+```
 
 
 * `ORF_length.R` (*manual analysis script*)
@@ -103,7 +107,9 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 		1. To STDOUT, prints a two-column `.tsv` table: column 1 contain contains the number of occurrences (*n*) of the haplotype; column 2 contains the haplotype sequence itself
 	* **Example**:
 
-		`aligned_fasta2haplotypes.pl SARSCOV2_ORF3d_aa.fasta`
+```Shell
+aligned_fasta2haplotypes.pl SARSCOV2_ORF3d_aa.fasta
+```
 
 
 * `riboseq_sliding_window.R` (*command-line script*)
@@ -117,7 +123,9 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 		1. Table in `.tsv` format giving the sum of reads in each frame for each condition and position (start of window).
 	* **Example**:
 
-		`Rscript riboseq_sliding_window.R frames_table.txt mapped_reads_by_readlength_ALL.tsv 30 30`
+```Shell
+Rscript riboseq_sliding_window.R frames_table.txt mapped_reads_by_readlength_ALL.tsv 30 30
+```
 
 
 ### <a name="figure-3"></a>Figure 3. SARS-CoV-2 protein sequence properties
@@ -133,7 +141,9 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 		1. Multiple sequence alignment in FASTA format containing the randomized protein sequence(s).
 	* **Example**:
 
-		`generate_random_protein.py ORF3d_aa.fasta 57 1000`
+```Shell
+generate_random_protein.py ORF3d_aa.fasta 57 1000
+```
 
 
 * `tally_epitope_coverage.py` (*command-line script*)
@@ -146,13 +156,15 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 		1. Table in `.tsv` format giving the sum of bound epitopes overlapping each site.
 	* **Example**:
 
-		`tally_epitope_coverage.py ORF3d_random.tsv 9`
+```Shell
+tally_epitope_coverage.py ORF3d_random.tsv 9
+```
 
 
 ### <a name="figure-5"></a>Figure 5. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels
 
 * `generate_seqs_from_VCF.py` (*command-line script*)
-	* **Description**. Script to generate a FASTA with randomly interspersed variants (from VCF), for use with OLGenie or any software that requires a multiple sequence alignment input and does not depend upon linkage.
+	* **Description**. Script to generate a FASTA with randomly interspersed variants (from VCF), for use with <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> (Nelson et al. 2020) or any software that requires a multiple sequence alignment input and does not depend upon linkage.
 	* **Requirements**. Python packages Bio, os, random, re, sys
 	* **Input**. Three unnamed arguments in the following order: 
 		1. A FASTA file containing exactly one (1) reference sequence (*e.g.*, SARS-CoV-2 Wuhan-Hu-1)
@@ -161,13 +173,15 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 		1. A new `*.fasta` multiple sequence alignment file with variants randomy interpersed at the frequencies defined in the VCF file.
 	* **Example**:
 
-		`generate_seqs_from_VCF.py reference.fasta variants.vcf 1000`
+```Shell
+generate_seqs_from_VCF.py reference.fasta variants.vcf 1000
+```
 
 
 ### <a name="figure-8"></a>Figure 8. High-frequency within-host mutations
 
 * `filter_VCF.py` (*command-line script*)
-	* **Description**. Script to dynamically filter within-host variants using a binomial cutoff to control for a user-defined false-discovery rate (FDR). Automatically detects and analyzes all `.vcf` (variant call format) files in the working directory.
+	* **Description**. Script to dynamically filter within-host variants using a binomial cutoff to control for a user-defined false-discovery rate (FDR). Automatically detects and analyzes all `.vcf` (variant call format) files in the working directory. For use with <a target="_blank" href="https://github.com/chasewnelson/SNPGenie">SNPGenie</a> (Nelson et al. 2015) or any software requiring FDR-filtered variants in `.vcf` files.
 	* **Requirements**. Python packages Bio, numpy, os, random, re, scipy.stats, sys
 	* **Input**. One or more `.vcf` files in the working directory, and five unnamed arguments in the following order: 
 		1. analysis-wide FDR cutoff (integer): the maximum absolute number of false-positive variants called across all VCF files examined
@@ -180,7 +194,9 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 		2. Prints summary statistics to STDOUT regarding the FREQUENCY, AC (allele count), and DP (total read depth at site) of passing and failing variants.
 	* **Example**:
 
-		`filter_VCF.py 1 0 29903 0.002 401`
+```Shell
+filter_VCF.py 1 0 29903 0.002 401
+```
 
 
 * `summarize_intrahost_by_site.py` (*command-line script*)
@@ -193,7 +209,9 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 		1. An output file by the name `*_site_database.tsv`. There are four rows for each position in the genome (defined by input 1), corresponding to each of the four possible nucleotide changes (including self-nucleotide). For example, a position with A in the reference (REF), there will four possible single nucleotide changes (ALT): A (self), C, G, and T. Each row is also labelled with up to two genes overlapping the site, and the codon, codon position, and amino acid encoded by each gene. Finally, each column following the metadata is a sample, giving the number of `REF,ALT` reads in that same at that position, if its VCF file contains a record. Note that the beginning of the file is largely unpopulated, as the first rows correspond to the 5'-UTR region lacking genes and coverage.
 	* **Example**:
 
-		`summarize_intrahost_by_site.py NC_045512.fasta NC_045512.gtf`
+```Shell
+summarize_intrahost_by_site.py NC_045512.fasta NC_045512.gtf
+```
 
 
 
@@ -209,7 +227,9 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 		1. one FASTA file for each CDS record in the GTF file. Just the DNA segment corresponding to the CDS coordinates of each record will be present in the resulting FASTA files.
 	* **Example**:
 
-		`extract_fasta_by_sites.pl Wuhan_Hu_1.fasta Wuhan_Hu_1.gtf`
+```Shell
+extract_fasta_by_sites.pl Wuhan_Hu_1.fasta Wuhan_Hu_1.gtf
+```
 
 
 * `extract_seq_subset.py` (*command-line script*)
@@ -221,7 +241,9 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 		1. A multiple sequence alignment in FASTA format based on the file given by argument 2, but including only those sequences with headers provided in the file given by argument 1.
 	* **Example**:
 
-		`extract_seq_subset.py seq_ID_list.txt SARS-COV-2_ALN.fasta`
+```Shell
+extract_seq_subset.py seq_ID_list.txt SARS-COV-2_ALN.fasta
+```
 
 
 * `translate_nt_seq_file.pl` (*command-line script*)
@@ -233,7 +255,9 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 		1. To STDOUT, print the translated sequences.
 	* **Example**:
 
-		`translate_nt_seq_file.pl coding_nt_seqs.fasta`
+```Shell
+translate_nt_seq_file.pl coding_nt_seqs.fasta
+```
 
 
 ## <a name="acknowledgments"></a>Acknowledgments
@@ -266,4 +290,5 @@ Other queries should be addressed to the corresponding authors:
 ## <a name="references"></a>References
 
 * Nelson CW, Ardern Z, Wei X. 2020. <a target="_blank" href="https://academic.oup.com/mbe/article/37/8/2440/5815567">OLGenie: estimating natural selection to predict functional overlapping genes</a>. *Molecular Biology and Evolution* **37**(8):2440–2449. doi: https://doi.org/10.1093/molbev/msaa087
+* Nelson CW, Moncla LH, Hughes AL. 2015. <a target="_blank" href="https://academic.oup.com/bioinformatics/article/31/22/3709/241742">SNPGenie: estimating evolutionary parameters to detect natural selection using pooled next-generation sequencing data</a>. *Bioinformatics* **31**(22):3709–3711. doi: https://doi.org/10.1093/bioinformatics/btv449
 * Schlub TE, Buchmann JP, Holmes EC. 2018. <a target="_blank" href="https://academic.oup.com/mbe/article/35/10/2572/5067730">A simple method to detect candidate overlapping genes in viruses using single genome sequences</a>. *Molecular Biology and Evolution* **35**(10):2572–2581. doi: https://doi.org/10.1093/molbev/msy155
