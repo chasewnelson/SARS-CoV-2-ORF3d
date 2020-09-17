@@ -54,11 +54,11 @@ The following supplementary data are provided in this GitHub repository:
 
 ## <a name="supplementary-scripts"></a>Supplementary scripts
 
-Scripts are arranged by Figure, and therefore by analysis. The scripts are of two types: 
+Scripts are arranged by Figure, and therefore by analysis. Although we are not able to provide all input data files because of the <a target="_blank" href="https://www.gisaid.org/">GISAID</a> privacy agreement, users can apply for their own access. Every effort has been made to describe all steps and input, here or in each script's comments. Where applicable, scripts are arranged in the order they should be executed. The scripts are of two types: 
 
 1. ***Command-line*** scripts are intended to be executed from the bash command line with the specified arguments. 
 
-2. ***Manual analysis*** scripts are R scripts or Python Jupyter Notebooks documenting the bulk of our data analyses and visualizations. These are intended to be executed manually line-by-line in R/RStudio or Jupyter. The use should replace path names and arguments with the appropriate values for the user's analysis and directories.
+2. ***Manual analysis*** scripts are R scripts or Python Jupyter Notebooks documenting the bulk of our data analyses and visualizations. These are intended to be executed manually line-by-line in R/RStudio or Jupyter. The use should replace path names and arguments with the appropriate values for the user's analysis and directories. Attention has been drawn to lines or variables that should be modified by the user with the flag: `<-- CHANGE THIS`
 
 
 ### TEMPLATE
@@ -209,6 +209,16 @@ generate_seqs_from_VCF.py reference.fasta variants.vcf 1000
 ```Shell
 SARS-CoV-2_locate_genes.pl SARS-CoV-2_ALN.fasta
 ```
+
+* `temporal_pi.R` (*manual analysis script*)
+	* **Description**. Calculate and plot nucleotide diversity (*π*) and location entropy as a function of time for Figure 5—figure supplement 2. The user must first use <a target="_blank" href="https://github.com/chasewnelson/SNPGenie">SNPGenie</a> (`snpgenie_within_group.pl`) to analyze the results of `extract_seqs_by_timepoint.py`, separately for each window.
+	* **Requirements**. R libraries boot, patchwork, RColorBrewer, scales, tidyverse
+	* **Input**. Three unnamed arguments in the following order: 
+		1. `within_group_codon_results.tsv`, combined across timepoints
+		2. `timepoint_seq_IDs.txt`, a table with sequence IDs (column `ID`,  *i.e.*, EPI_*) for each time window (column `time_period`, *e.g.*, "0to14")
+		3. `gisaid_cov2020_acknowledgement_table.tsv`
+	* **Output**. 
+		1. Figures and statistics related to Figure 5—figure supplement 2
 
 
 ### <a name="figure-7"></a>Figure 7. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF
