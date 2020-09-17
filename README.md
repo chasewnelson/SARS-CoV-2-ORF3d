@@ -203,7 +203,7 @@ generate_seqs_from_VCF.py reference.fasta variants.vcf 1000
 	* **Description**. Script to extract SARS-CoV-2 GISAID sequences by timepoint in a sliding window for analysis in Figure 5—figure supplement 2. Sliding window size (14 days) and step size (7 days) may be changed in the code. Day 0 is taken to be the earliest date on or following 2019/12/20; sequences sampled at earlier dates will be excluded.
 	* **Requirements**. Python packages Bio, datetime, os, sys
 	* **Input**. Two unnamed arguments in the following order: 
-		1. the GISAID acknowledgements table, saved as a `.tsv` file; this contains the sampling dates of each sequence. The script expects the sequence ID in column 1 (index 0) and  the date in column 4 (index 3)
+		1. the GISAID acknowledgements table, saved as a `.tsv` file with a one-row header; this contains the sampling dates of each sequence. The script expects the sequence ID in column 1 (index 0) and the date in column 4 (index 3)
 		2. a `.fasta` multiple sequence alignment file, where the headers are the GISAID IDs, *i.e.*, they match the accession IDs in the GISAID table
 	* **Output**. 
 		1. One `*.fasta` multiple sequence alignment file for each 14 day window, containing just those sequences sampled during that period. For example, the first file will have the name `*_0to14.fasta` (window 1), the second file will have the name `*_7to21.fasta` (window 2), and so on.
@@ -217,16 +217,34 @@ extract_seqs_by_timepoint.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2
 	* **Description**. Script to extract SARS-CoV-2 GISAID sequences by location for analysis in Figure 5—figure supplement 2.
 	* **Requirements**. Python packages Bio, datetime, os, sys
 	* **Input**. Four unnamed arguments in the following order: 
-		1. the GISAID acknowledgements table, saved as a `.tsv` file; this contains the sampling dates of each sequence. The script expects the sequence ID in column 1 (index 0) and  the date in column 4 (index 3)
+		1. the GISAID acknowledgements table, saved as a `.tsv` file with a one-row header; this contains the sampling dates of each sequence. The script expects the sequence ID in column 1 (index 0), location in column 3 (index 2), and the date in column 4 (index 3)
 		2. a `.fasta` multiple sequence alignment file, where the headers are the GISAID IDs, *i.e.*, they match the accession IDs in the GISAID table
 		3. name of desired output file
 		4. location, *i.e.*, string to detect in `Location` columns
 	* **Output**. 
-		1. One `*.fasta` multiple sequence alignment file with the name given but input argument 3 above, containing only those sequences matching the location given in argument 4 above.
+		1. One `*.fasta` multiple sequence alignment file with the name given by input argument 3 above, containing only those sequences matching the location given in argument 4 above.
 	* **Example**:
 
 ```Shell
 extract_seqs_by_location.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2_ALN.fasta SARS-CoV-2_ALN_Asia.fasta Asia
+```
+
+* `extract_positions_by_timepoint.py` (*command-line script*)
+	* **Description**. Track the frequency of alleles at specific sites in a sliding time window for allele trajectory analysis in Figure 5—figure supplement 2.
+	* **Requirements**. Python packages Bio, datetime, os, sys
+	* **Input**. Six unnamed arguments in the following order: 
+		1. the GISAID acknowledgements table, saved as a `.tsv` file with a one-row header; this contains the sampling dates of each sequence. The script expects the sequence ID in column 1 (index 0), and the date in column 4 (index 3)
+		2. a `.fasta` multiple sequence alignment file, where the headers are the GISAID IDs, *i.e.*, they match the accession IDs in the GISAID table
+		3. a `.tsv` file with a single column: a list of sites (1-based genome positions) to track
+		4. name of desired output file (`.tsv`)
+		5. window size in days (int), the size of the windows in which to calculate allele frequencies
+		6. step size in days (int), how many days to move forward for each successive window
+	* **Output**. 
+		1. One `.tsv` table with the name given by input argument 4 above, where each row is a unique combination of timepoint and genome position, and columns report the numbers and frequencies of the alleles for that timepoint and position.
+	* **Example**:
+
+```Shell
+extract_positions_by_timepoint.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2_ALN_Asia.fasta sites_to_track.tsv SARS-CoV-2_ALN_Asia_tracked.fasta 14 1
 ```
 
 * `temporal_pi.R` (*manual analysis script*)
