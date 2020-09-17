@@ -17,6 +17,7 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 		* `tally_epitope_coverage.py`
 	* [**Figure 4**. Amino acid variation in proteins encoded by genes overlapping *ORF3a* in viruses of the species *Severe acute respiratory syndrome-related coronavirus*](#figure-4).
 	* [**Figure 5**. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels](#figure-5).
+		* `generate_seqs_from_VCF.py`
 	* [**Figure 6**. Between-taxa sliding window analysis of natural selection on overlapping frames of *ORF3a*](#figure-6).
 	* [**Figure 7**. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF](#figure-7).
 	* [**Figure 8**. High-frequency within-host mutations](#figure-8).
@@ -134,6 +135,21 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 		`tally_epitope_coverage.py ORF3d_random.tsv 9`
 
 
+### <a name="figure-5"></a>Figure 5. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels
+
+* `generate_seqs_from_VCF.py` (*command-line script*)
+	* **Description**. Script to generate a FASTA with randomly interspersed variants (from VCF), for use with OLGenie or any software that requires a multiple sequence alignment input and does not depend upon linkage.
+	* **Requirements**. Python packages Bio, os, random, re, sys
+	* **Input**. Three unnamed arguments in the following order: 
+		1. A FASTA file containing exactly one (1) reference sequence (*e.g.*, SARS-CoV-2 Wuhan-Hu-1)
+		2. a `.vcf` file containing the variants of interest
+		3. number of sequences to generate (integer)	* **Output**. 
+		1. A new `*.fasta` multiple sequence alignment file with variants randomy interpersed at the frequencies defined in the VCF file.
+	* **Example**:
+
+		`generate_seqs_from_VCF.py reference.fasta variants.vcf 1000`
+
+
 ### <a name="figure-8"></a>Figure 8. High-frequency within-host mutations
 
 * `filter_VCF.py` (*command-line script*)
@@ -167,7 +183,6 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 ```
 
 
-
 ### <a name="additional-scripts"></a>Additional scripts
 
 * `extract_seq_subset.py` (*command-line script*)
@@ -198,11 +213,11 @@ and this page:
 >https://github.com/chasewnelson/SARS-CoV-2-ORF3d
 
 
-## <a name="contact"></a>Contact
+## <a name="contact"></a>Contact and troubleshooting
 
-If you have questions about our scripts or study, please click on the <a target="_blank" href="https://github.com/chasewnelson/SARS-CoV-2-ORF3d/issues">Issues</a> tab at the top of this page and begin a new thread, so that others might benefit from the discussion.
+If you have questions about our scripts or study, please first thoroughly read the documentation and in-line comments relevant to the script of interest. If these do not answer your question, please click on the <a target="_blank" href="https://github.com/chasewnelson/SARS-CoV-2-ORF3d/issues">Issues</a> tab at the top of this page and search to see if your question has already been answered; if not, begin a new issue, so that others might benefit from the discussion.
 
-Other correspondence should be addressed to the corresponding authors: 
+Other queries should be addressed to the corresponding authors: 
 
 *  Chase W. Nelson, cnelson <**AT**> gate <**DOT**> sinica <**DOT**> edu <**DOT**> tw
 *  Zachary Ardern, zachary <**DOT**> ardern <**AT**> tum <**DOT**> de
