@@ -8,14 +8,22 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 * [Supplementary data](#supplementary-data)
 * [Supplementary scripts](#supplementary-scripts)
 	* [**Figure 1**. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members](#figure-1).
+		* `fig1B.bash`
+		* `ORF_length.R`
 	* [**Figure 2**. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets](#figure-2).
+		* `riboseq_sliding_window.R`
 	* [**Figure 3**. SARS-CoV-2 protein sequence properties](#figure-3).
+		* `generate_random_protein.py`
+		* `tally_epitope_coverage.py`
 	* [**Figure 4**. Amino acid variation in proteins encoded by genes overlapping *ORF3a* in viruses of the species *Severe acute respiratory syndrome-related coronavirus*](#figure-4).
 	* [**Figure 5**. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels](#figure-5).
 	* [**Figure 6**. Between-taxa sliding window analysis of natural selection on overlapping frames of *ORF3a*](#figure-6).
 	* [**Figure 7**. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF](#figure-7).
 	* [**Figure 8**. High-frequency within-host mutations](#figure-8).
+		* `filter_vcf.py`
+		* `summarize_intrahost_by_site.py`
 	* [**Additional scripts**](#additional-scripts).
+		* `extract_seq_subset.py`
 * [Acknowledgments](#acknowledgments)
 * [Citation](#citation)
 * [Contact](#contact)
@@ -124,6 +132,40 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 	* **Example**:
 
 		`tally_epitope_coverage.py ORF3d_random.tsv 9`
+
+
+### <a name="figure-8"></a>Figure 8. High-frequency within-host mutations
+
+* `filter_VCF.py` (*command-line script*)
+	* **Description**. Script to dynamically filter within-host variants using a binomial cutoff to control for a user-defined false-discovery rate (FDR). Automatically detects and analyzes all `.vcf` (variant call format) files in the working directory.
+	* **Requirements**. Python packages Bio, numpy, os, random, re, scipy.stats, sys
+	* **Input**. Five unnamed arguments in the following order: 
+		1. analysis-wide FDR cutoff (integer): the maximum absolute number of false-positive variants called across all VCF files examined
+		2. the minimum allowed minor allele frequency (numeric), independent of FDR
+		3. genome length (integer)
+		4. sequencing error rate per site (numeric): assumes all nucleotide changes are equally probable	
+		5. number of samples in analysis (integer), i.e., total number of deeply sequenced within-host samples (here, the number of VCF files)
+	* **Output**. 
+		1. Creates a new (`*_filtered.vcf`) VCF file for each VCF file in the working directory, including only those variants that pass the FDR threshold.
+		2. Prints summary statistics to STDOUT regarding the FREQUENCY, AC (allele count), and DP (total read depth at site) of passing and failing variants.
+	* **Example**:
+
+		`filter_VCF.py 1 0 29903 0.002 401`
+
+
+```
+* `summarize_intrahost_by_site.py` (*command-line script*)
+	* **Description**.  Script for extracting a subset of sequences from a FASTA based on header ID.
+	* **Requirements**. Python packages Bio, os, sys
+	* **Input**. Two unnamed arguments in the following order: 
+		1. a text file containing exactly one column of sequence IDs (FASTA headers) 
+		2. a multiple sequence alignment of nucleotides in FASTA format	* **Output**. 
+		1. A multiple sequence alignment in FASTA format based on the file given by argument 2, but including only those sequences with headers provided in the file given by argument 1.
+	* **Example**:
+
+		`extract_seq_subset.py seq_ID_list.txt SARS-COV-2_ALN.fasta`
+```
+
 
 
 ### <a name="additional-scripts"></a>Additional scripts
