@@ -25,6 +25,7 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 		* `summarize_intrahost_by_site.py`: create a genome database cataloguing within-host variants
 	* [**Additional scripts**](#additional-scripts).
 		* `extract_seq_subset.py`: extract a subset of sequences from a FASTA
+		* `translate_nt_seq_file.pl`: translate a file of protein-coding nucleotide sequences
 * [Acknowledgments](#acknowledgments)
 * [Citation](#citation)
 * [Contact](#contact)
@@ -195,6 +196,18 @@ Scripts are arranged by Figure, and therefore by analysis. The scripts are of tw
 	* **Example**:
 
 		`extract_seq_subset.py seq_ID_list.txt SARS-COV-2_ALN.fasta`
+
+
+* `translate_nt_seq_file.pl` (*command-line script*)
+	* **Description**. Script to translate a file of (un-aligned) nucleotide sequences and print the proteins.
+	* **Requirements**. Perl
+	* **Input**. One unnamed argument: 
+		1. one nucleotide FASTA file containing the original (un-aligned) coding nucleotide sequences (complete codon sets, *i.e.*, multiples of 3)
+	* **Output**. 
+		1. To STDOUT, print the translated sequences.
+	* **Example**:
+
+		`translate_nt_seq_file.pl coding_nt_seqs.fasta`
 
 
 ## <a name="acknowledgments"></a>Acknowledgments
