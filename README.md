@@ -7,9 +7,8 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 
 * [Supplementary data](#supplementary-data)
 	* `SARS-related-CoV_ALN.fasta`: whole-genome multiple sequence alignment of *n*=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus* (between-taxa analysis)
-	* `SARS-related-CoV_ALN.gtf`: a `.gtf.` file giving gene positions within `SARS-related-CoV_ALN.fasta`
+	* `SARS-related-CoV_ALN.gtf`: a `.gtf` file giving gene positions within `SARS-related-CoV_ALN.fasta`
 	* `Supplementary_Tables.xlsx`: Supplementary Tables referred to in the [manuscript](#citation)
-
 * [Supplementary scripts](#supplementary-scripts)
 	* [**Figure 1**. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members](#figure-1).
 		* `fig1B.bash`
@@ -23,22 +22,21 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 	* [**Figure 4**. Amino acid variation in proteins encoded by genes overlapping *ORF3a* in viruses of the species *Severe acute respiratory syndrome-related coronavirus*](#figure-4).
 	* [**Figure 5**. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels](#figure-5).
 		* `generate_seqs_from_VCF.py`: generate <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> input for within-host analysis
+		* `SARS-CoV-2_locate_genes.pl`: automatically find the coordinates of each SARS-CoV-2 gene in a nucleotide multiple sequence alignment
 	* [**Figure 6**. Between-taxa sliding window analysis of natural selection on overlapping frames of *ORF3a*](#figure-6).
 	* [**Figure 7**. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF](#figure-7).
+		* `extract_variable_columns_MSA.py`: identify variable sites in a nucleotide multiple sequence alignment
+		* `extract_variable_columns_MSA_aa.py`: identify variable sites in an amino acid multiple sequence alignment
 	* [**Figure 8**. High-frequency within-host mutations](#figure-8).
 		* `filter_vcf.py`: apply a binomial false-discovery rate correction to within-host variants
 		* `summarize_intrahost_by_site.py`: create a genome database cataloguing within-host variants
 	* [**Additional scripts**](#additional-scripts).
 		* `extract_fasta_by_sites.pl`: extracts gene regions of a multiple sequence alignment
-		* `extract_seq_subset.py`: extract a subset of sequences from a FASTA
+		* `extract_seq_subset.py`: extract a subset of sequences from a `.fasta` file
 		* `translate_nt_seq_file.pl`: translate a file of protein-coding nucleotide sequences
-
 * [Acknowledgments](#acknowledgments)
-
 * [Citation](#citation)
-
 * [Contact](#contact)
-
 * [References](#references)
 
 
@@ -84,7 +82,7 @@ XXX
 	* **Description**. Produces Figure1B using PyGenomeTracks.
 	* **Requirements**. PyGenomeTracks, Seqkit.
 	* **Input**. The following files need to be in the working directory: 
-		1. `SARS-related-CoV_ALN.fasta`: multiple alignment FASTA file of n=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus*. Note that the pangolin-CoV GD/1 sequence has been masked as `N`, because GISAID permission is required for data access.
+		1. `SARS-related-CoV_ALN.fasta`: multiple alignment `.fasta` file of n=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus*. Note that the pangolin-CoV GD/1 sequence has been masked as `N`, because GISAID permission is required for data access.
 		2. `SARS-related-CoV_ALN.gtf`: Gene Transfer Format (GTF) file giving gene positions within `SARS-related-CoV_ALN.fasta`.
 		3. `sbc_rename2.nw`: Newick tree for sarbecovirus alignment **!!TODO: Zac, I need this <--**
 		4. `parameters_input.txt` **!!TODO: Zac, I need this <--**
@@ -96,7 +94,6 @@ XXX
 ```Shell
 fig1B.bash
 ```
-
 
 * `ORF_length.R` (*manual analysis script*)
 	* **Description**. Analyze the genome-wide ORF length results of the Schlub et al. (2018) codon permutation method and produce Figure 1—figure supplement 1.
@@ -112,7 +109,7 @@ fig1B.bash
 * `aligned_fasta2haplotypes.pl` (*command-line script*)
 	* **Description**. Script to determine all existing haplotypes in a set of sequences. Output used as a list of peptide search queries in mass spectrometry.
 	* **Input**. Unnamed arguments in the following order: 
-		1. A FASTA file containing a multiple sequence amino acid alignment of one protein product of interest
+		1. A `.fasta` file containing a multiple sequence amino acid alignment of one protein product of interest
 	* **Output**. 
 		1. To STDOUT, prints a two-column `.tsv` table: column 1 contain contains the number of occurrences (*n*) of the haplotype; column 2 contains the haplotype sequence itself
 	* **Example**:
@@ -121,14 +118,13 @@ fig1B.bash
 aligned_fasta2haplotypes.pl SARSCOV2_ORF3d_aa.fasta
 ```
 
-
 * `riboseq_sliding_window.R` (*command-line script*)
 	* **Description**. Sliding window script to calculate proportion of reads in each frame for a specified read length and window size, separately for each treatment combination.
 	* **Input**. Unnamed arguments in the following order: 
-		1. `INFILE_FRAMES`: file with condition metadata for samples
-		2. `INFILE_READS`: file with read data
-		3. `WIN_SIZE`: size of the sliding window
-		4. `READ_LEN`: length of reads to consider.
+		1. `INFILE_FRAMES`: file with condition metadata for samples. Columns described within script
+		2. `INFILE_READS`: file with read data. Columns described within script
+		3. `WIN_SIZE`: size of the sliding window (integer)
+		4. `READ_LEN`: length of reads to consider (integer)
 	* **Output**. 
 		1. Table in `.tsv` format giving the sum of reads in each frame for each condition and position (start of window).
 	* **Example**:
@@ -141,20 +137,19 @@ Rscript riboseq_sliding_window.R frames_table.txt mapped_reads_by_readlength_ALL
 ### <a name="figure-3"></a>Figure 3. SARS-CoV-2 protein sequence properties
 
 * `generate_random_protein.py` (*command-line script*)
-	* **Description**. Script to generate random protein sequences of a given length from an input proteome in FASTA format.
+	* **Description**. Script to generate random protein sequences of a given length from an input proteome in `.fasta` format.
 	* **Requirements**. Python packages Bio, Bio.Seq, Bio.SeqRecord, os, random, sys
 	* **Input**. Unnamed arguments in the following order: 
-		1. input file with peptide sequence in FASTA format
+		1. input file with peptide sequence in `.fasta` format
 		2. length of peptide to generate
 		3. number of peptides to generate
 	* **Output**. 
-		1. Multiple sequence alignment in FASTA format containing the randomized protein sequence(s).
+		1. Multiple sequence alignment in `.fasta` format containing the randomized protein sequence(s).
 	* **Example**:
 
 ```Shell
 generate_random_protein.py ORF3d_aa.fasta 57 1000
 ```
-
 
 * `tally_epitope_coverage.py` (*command-line script*)
 	* **Description**. Script for tallying epitope coverage for one protein product in a sliding window.
@@ -174,10 +169,10 @@ tally_epitope_coverage.py ORF3d_random.tsv 9
 ### <a name="figure-5"></a>Figure 5. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels
 
 * `generate_seqs_from_VCF.py` (*command-line script*)
-	* **Description**. Script to generate a FASTA with randomly interspersed variants (from VCF), for use with <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> (Nelson et al. 2020) or any software that requires a multiple sequence alignment input and does not depend upon linkage.
+	* **Description**. Script to generate a `.fasta` with randomly interspersed variants (from VCF), for use with <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> (Nelson et al. 2020) or any software that requires a multiple sequence alignment input and does not depend upon linkage.
 	* **Requirements**. Python packages Bio, os, random, re, sys
 	* **Input**. Three unnamed arguments in the following order: 
-		1. A FASTA file containing exactly one (1) reference sequence (*e.g.*, SARS-CoV-2 Wuhan-Hu-1)
+		1. A `.fasta` file containing exactly one (1) reference sequence (*e.g.*, SARS-CoV-2 Wuhan-Hu-1)
 		2. a `.vcf` file containing the variants of interest
 		3. number of sequences to generate (integer)	* **Output**. 
 		1. A new `*.fasta` multiple sequence alignment file with variants randomy interpersed at the frequencies defined in the VCF file.
@@ -186,6 +181,47 @@ tally_epitope_coverage.py ORF3d_random.tsv 9
 ```Shell
 generate_seqs_from_VCF.py reference.fasta variants.vcf 1000
 ```
+
+* `SARS-CoV-2_locate_genes.pl` (*command-line script*)
+	* **Description**. Script to locate gene start and stop sites by finding the first sequences beginning and ending with (hardcoded) nucleotide sequences taken from the reference sequence: https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3. The code itself is a useful resource, as it contains the beginning and ending of most genes.
+	* **Requirements**. Perl
+	* **Input**. Three unnamed arguments in the following order: 
+		1. A `.fasta` file containing a multiple sequence alignment of SARS-CoV-2 whole-genome nucleotide sequences. Note that the script may fail for alignments with gaps or highly diverged from the Wuhan-Hu-1 genotype.	
+	* **Output**. 
+		1. To STDOUT, prints a `.gtf` file containing gene coordinates. Note that some genes may be missed if the alignment contains sequences highly diverged from SARS-CoV-2.
+	* **Example**:
+
+```Shell
+SARS-CoV-2_locate_genes.pl SARS-CoV-2_ALN.fasta
+```
+
+
+### <a name="figure-7"></a>Figure 7. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF
+
+* `extract_variable_columns_MSA.py` (*command-line script*)
+	* **Description**. Script for examining a multiple sequence alignment to identify variable (segregating) sites
+	* **Requirements**. Python packages Bio, os, re, sys
+	* **Input**. Two unnamed arguments in the following order: 
+		1. a `.fasta` file containing aligned nucleotide sequences 
+		2. a minimum minor allele frequency to allow (numeric)
+	* **Output**. 
+		1. To a file named `*_variants_MAF[\d\.].fasta`, prints a `.fasta` multiple sequence alignment of just the variable sites
+		2. To a file named `*_variants_MAF[\d\.].tsv`, prints a `.tsv` table giving the nucleotide present in each sequence (row) at each variable site (column)
+		2. To STDOUT, reports the positions of the variable sites
+	* **Example**:
+
+```Shell
+extract_variable_columns_MSA.py SARS-CoV-2_ALN.fasta 0.02
+```
+
+* `extract_variable_columns_MSA_aa.py` (*command-line script*)
+	* **Description**. Same as `extract_variable_columns_MSA.py`, but for amino acid sequences, necessary to account for STOP codons (potential non-word characters).
+	* **Example**:
+
+```Shell
+extract_variable_columns_MSA_aa.py SARS-CoV-2_ORF3d_aa_ALN.fasta 0.02
+```
+
 
 
 ### <a name="figure-8"></a>Figure 8. High-frequency within-host mutations
@@ -208,12 +244,11 @@ generate_seqs_from_VCF.py reference.fasta variants.vcf 1000
 filter_VCF.py 1 0 29903 0.002 401
 ```
 
-
 * `summarize_intrahost_by_site.py` (*command-line script*)
 	* **Description**. Script to create a genome database cataloguing within-host variants. Automatically detects and analyzes all `.vcf` (variant call format) files in the working directory.
 	* **Requirements**. Python packages Bio, Bio.alphabet, Bio.seq, os, re, sys
 	* **Input**. One or more `.vcf` files in the working directory, and two unnamed arguments in the following order: 
-		1. A FASTA file containing exactly one (1) reference sequence (*e.g.*, SARS-CoV-2 Wuhan-Hu-1)
+		1. A `.fasta` file containing exactly one (1) reference sequence (*e.g.*, SARS-CoV-2 Wuhan-Hu-1)
 		2. A `.gtf` file containing containing genes to be annotated in the output table, with up to two genes overlapping each site (others will be ignored)
 	* **Output**. 
 		1. An output file by the name `*_site_database.tsv`. There are four rows for each position in the genome (defined by input 1), corresponding to each of the four possible nucleotide changes (including self-nucleotide). For example, a position with A in the reference (REF), there will four possible single nucleotide changes (ALT): A (self), C, G, and T. Each row is also labelled with up to two genes overlapping the site, and the codon, codon position, and amino acid encoded by each gene. Finally, each column following the metadata is a sample, giving the number of `REF,ALT` reads in that same at that position, if its VCF file contains a record. Note that the beginning of the file is largely unpopulated, as the first rows correspond to the 5'-UTR region lacking genes and coverage.
@@ -224,43 +259,40 @@ summarize_intrahost_by_site.py NC_045512.fasta NC_045512.gtf
 ```
 
 
-
 ### <a name="additional-scripts"></a>Additional scripts
 
 * `extract_fasta_by_sites.pl` (*command-line script*)
 	* **Description**. Script to extract (excise; cut out) regions of a multiple sequence alignment, e.g., pull out specific genes.
 	* **Requirements**. Perl
 	* **Input**. Two unnamed arguments in the following order: 
-		1. a FASTA file containing containing one or more aligned sequences 
+		1. a `.fasta` file containing containing one or more aligned sequences 
 		2. a`.gtf` file containing CDS products to extract. They need not really be CDS, but should be labelled as such in the file.	Only works for forward-strand (+) products.
 	* **Output**. 
-		1. one FASTA file for each CDS record in the GTF file. Just the DNA segment corresponding to the CDS coordinates of each record will be present in the resulting FASTA files.
+		1. one `.fasta` file for each CDS record in the GTF file. Just the DNA segment corresponding to the CDS coordinates of each record will be present in the resulting `.fasta` files.
 	* **Example**:
 
 ```Shell
 extract_fasta_by_sites.pl Wuhan_Hu_1.fasta Wuhan_Hu_1.gtf
 ```
 
-
 * `extract_seq_subset.py` (*command-line script*)
-	* **Description**.  Script for extracting a subset of sequences from a FASTA based on header ID.
+	* **Description**.  Script for extracting a subset of sequences from a `.fasta` based on header ID.
 	* **Requirements**. Python packages Bio, os, sys
 	* **Input**. Two unnamed arguments in the following order: 
-		1. a text file containing exactly one column of sequence IDs (FASTA headers) 
-		2. a multiple sequence alignment of nucleotides in FASTA format	* **Output**. 
-		1. A multiple sequence alignment in FASTA format based on the file given by argument 2, but including only those sequences with headers provided in the file given by argument 1.
+		1. a text file containing exactly one column of sequence IDs (`.fasta` headers) 
+		2. a multiple sequence alignment of nucleotides in `.fasta` format	* **Output**. 
+		1. A multiple sequence alignment in `.fasta` format based on the file given by argument 2, but including only those sequences with headers provided in the file given by argument 1.
 	* **Example**:
 
 ```Shell
 extract_seq_subset.py seq_ID_list.txt SARS-COV-2_ALN.fasta
 ```
 
-
 * `translate_nt_seq_file.pl` (*command-line script*)
 	* **Description**. Script to translate a file of (un-aligned) nucleotide sequences and print the proteins.
 	* **Requirements**. Perl
 	* **Input**. One unnamed argument: 
-		1. one nucleotide FASTA file containing the original (un-aligned) coding nucleotide sequences (complete codon sets, *i.e.*, multiples of 3)
+		1. one nucleotide `.fasta` file containing the original (un-aligned) coding nucleotide sequences (complete codon sets, *i.e.*, multiples of 3)
 	* **Output**. 
 		1. To STDOUT, print the translated sequences.
 	* **Example**:
