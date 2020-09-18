@@ -513,7 +513,7 @@ sd(bootstrap_gene_results_LONG[bootstrap_gene_results_LONG$region_type == "NOL" 
                  breaks = seq(as.Date(time0 + 7), as.Date(time0 + 91 + 7), by = "14 day")) +
     scale_y_continuous(breaks = scales::pretty_breaks(3), expand = expand_scale(mult = c(0, 0.01))))
 
-### HERE, run AF_trajectories to get whatever trajectory you want; can add at the end
+### allele frequency trajectories require specific sequence data from GISAID, but can be added by user
 
 # PLOT
 SARSCOV2_pi_TIMELINE_plot1 / SARSCOV2_pi_TIMELINE_plot2 / SARSCOV2_pi_TIMELINE_plot3 #/ trajectory_plot_14404 / trajectory_plot_23399 / trajectory_plot_25559
