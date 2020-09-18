@@ -9,7 +9,7 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 
 * [Supplementary data](#supplementary-data)
 	* `SARS-related-CoV_ALN.fasta`: whole-genome multiple sequence alignment of *n*=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus* (between-taxa analysis)
-	* `SARS-related-CoV_ALN.gtf`: a `.gtf` file giving gene positions within `SARS-related-CoV_ALN.fasta`
+	* `SARS-related-CoV_ALN.gtf`: a `.gtf` file giving gene positions within **SARS-related-CoV_ALN.fasta**
 	* `Supplementary_Tables.xlsx`: Supplementary Tables referred to in the [manuscript](#citation)
 * [Supplementary scripts](#supplementary-scripts)
 	* [**Figure 1**. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members](#figure-1).
@@ -26,6 +26,7 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 	* [**Figure 4**. Amino acid variation in proteins encoded by genes overlapping *ORF3a* in viruses of the species *Severe acute respiratory syndrome-related coronavirus*](#figure-4).
 	* [**Figure 5**. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels](#figure-5).
 		* `SARS-CoV-2_locate_genes.pl`: automatically find the coordinates of each SARS-CoV-2 gene in a nucleotide multiple sequence alignment
+		* `three_levels_diversity.R`: integrate and bootstrap SNPGenie and OLGenie results for each gene to produce the analysis underlying Figure 5
 		* `generate_seqs_from_VCF.py`: generate <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> input for within-host analysis
 		* `extract_seqs_by_timepoint.py`: extract SARS-CoV-2 GISAID sequences by timepoint in a sliding window for analysis in Figure 5—figure supplement 2
 		* `extract_seqs_by_location.py`: extract sequences by location for location-specific timepoint analyses in Figure 5—figure supplement 2
@@ -105,9 +106,9 @@ XXX
 		1. `Fig1b.png`
 	* **Example**:
 
-```Shell
-fig1B.bash
-```
+			```Shell
+			fig1B.bash
+			```
 
 * `ORF_length.R` (*manual analysis script*)
 	* **Description**. Analyze the genome-wide ORF length results of the Schlub et al. (2018) codon permutation method and produce Figure 1—figure supplement 1.
@@ -128,9 +129,9 @@ fig1B.bash
 		1. To STDOUT, prints a two-column `.tsv` table: column 1 contain contains the number of occurrences (*n*) of the haplotype; column 2 contains the haplotype sequence itself
 	* **Example**:
 
-```Shell
-aligned_fasta2haplotypes.pl SARSCOV2_ORF3d_aa.fasta
-```
+			```Shell
+			aligned_fasta2haplotypes.pl SARSCOV2_ORF3d_aa.fasta
+			```
 
 * `riboseq_sliding_window.R` (*command-line script*)
 	* **Description**. Sliding window script to calculate proportion of reads in each frame for a specified read length and window size, separately for each treatment combination.
@@ -143,9 +144,9 @@ aligned_fasta2haplotypes.pl SARSCOV2_ORF3d_aa.fasta
 		1. Table in `.tsv` format giving the sum of reads in each frame for each condition and position (start of window).
 	* **Example**:
 
-```Shell
-Rscript riboseq_sliding_window.R frames_table.txt mapped_reads_by_readlength_ALL.tsv 30 30
-```
+			```Shell
+			Rscript riboseq_sliding_window.R frames_table.txt mapped_reads_by_readlength_ALL.tsv 30 30
+			```
 
 
 ### <a name="figure-3"></a>Figure 3. SARS-CoV-2 protein sequence properties
@@ -161,9 +162,9 @@ Rscript riboseq_sliding_window.R frames_table.txt mapped_reads_by_readlength_ALL
 		1. Multiple sequence alignment in `.fasta` format containing the randomized protein sequence(s).
 	* **Example**:
 
-```Shell
-generate_random_protein.py ORF3d_aa.fasta 57 1000
-```
+			```Shell
+			generate_random_protein.py ORF3d_aa.fasta 57 1000
+			```
 
 * `tally_epitope_coverage.py` (*command-line script*)
 	* **Description**. Script for tallying epitope coverage for one protein product in a sliding window.
@@ -175,21 +176,33 @@ generate_random_protein.py ORF3d_aa.fasta 57 1000
 		1. Table in `.tsv` format giving the sum of bound epitopes overlapping each site.
 	* **Example**:
 
-```Shell
-tally_epitope_coverage.py ORF3d_random.tsv 9
-```
+			```Shell
+			tally_epitope_coverage.py ORF3d_random.tsv 9
+			```
 
 * `epitope_MHCI.R` (*manual analysis script*)
 	* **Description**. Analyze MHC class I epitopes for Figure 3A.
 	* **Requirements**. R libraries, ggrepel, patchwork, RColorBrewer, tidyverse.
 	* **Input**. 
-		1. `frameshift_results.txt`, produced by **frameshift_analysis.bash**.
+		1. `NetMHCpan_Wuhan-Hu-1.tsv`, NetMHCpan results for the basic protein set of the Wuhan-Hu-1 genome, plus *ORF3d*
+		2. `NetMHCpan_Wuhan-Hu-1_additional.tsv`, NetMHCpan results for *ORF3c*, *ORF3d-2*, and *ORF3b* (short)
+		3. `MHCI_epitope_summary_tally.tsv`, result of **tally_epitope_coverage.py** applied to the proteins encoded by Wuhan-Hu-1
+		4. `MHCI_short_unannot_ORFs.tsv`, result of **tally_epitope_coverage.py** applied to the short unannotated ORFs encoded by Wuhan-Hu-1
+		5. `NetMHCpan_*_random_tally.tsv`, result of **tally_epitope_coverage.py** applied to 1000 randomized peptides based on each of the proteins encoded by Wuhan-Hu-1
 	* **Output**. 
-		1. `ORF_length_heatmap_data.tsv`, p-values for each internal overlapping gene within a previously annotated gene, redundatly annotated on site-by-site basis.
+		1. `MHCI_epitope_summary_test.tsv`, compiled results for MHC class I analysis, used for Figure 3A
 
-
-
-
+* `epitope_MHCII.R` (*manual analysis script*)
+	* **Description**. Analyze MHC class II epitopes for Figure 3A.
+	* **Requirements**. R libraries, ggrepel, patchwork, RColorBrewer, tidyverse.
+	* **Input**. 
+		1. `NetMHCIIpan_Wuhan-Hu-1.tsv`, NetMHCIIpan results for the basic protein set of the Wuhan-Hu-1 genome, plus *ORF3d*
+		2. `NetMHCIIpan_Wuhan-Hu-1_additional.tsv`, NetMHCIIpan results for *ORF3c*, *ORF3d-2*, and *ORF3b* (short)
+		3. `MHCII_epitope_summary_tally.tsv`, result of **tally_epitope_coverage.py** applied to the proteins encoded by Wuhan-Hu-1
+		4. `MHCII_short_unannot_ORFs.tsv`, result of **tally_epitope_coverage.py** applied to the short unannotated ORFs encoded by Wuhan-Hu-1
+		5. `NetMHCIIpan_*_random_tally.tsv`, result of **tally_epitope_coverage.py** applied to 1000 randomized peptides based on each of the proteins encoded by Wuhan-Hu-1
+	* **Output**. 
+		1. `MHCII_epitope_summary_test.tsv`, compiled results for MHC class II analysis, used for Figure 3A
 
 
 ### <a name="figure-5"></a>Figure 5. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels
@@ -203,9 +216,28 @@ tally_epitope_coverage.py ORF3d_random.tsv 9
 		1. To STDOUT, prints a `.gtf` file containing gene coordinates. Note that some genes may be missed if the alignment contains sequences highly diverged from SARS-CoV-2.
 	* **Example**:
 
-```Shell
-SARS-CoV-2_locate_genes.pl SARS-CoV-2_ALN.fasta
-```
+		```Shell
+		SARS-CoV-2_locate_genes.pl SARS-CoV-2_ALN.fasta
+		```
+
+* `three_levels_diversity.R` (*manual analysis script*)
+	* **Description**. Input, wrangle, and bootstrap SNPGenie and OLGenie results for each gene and evolutionary level (between-taxa, between-host, and within-host) to produce the analysis underlying Figure 5.
+	* **Requirements**. R libraries boot, RColorBrewer, scales, tidyverse.
+	* **Input**.
+		1. `between-taxa_codon_OL_category.tsv`, metadata file containing the OLG category for each codon in each product in the *Severe acute respiratory syndrome-related coronavirus* alignment, **SARS-related-CoV_ALN.fasta**
+		2. `between-taxa_SNPGenie.tsv`, SNPGenie (non-OLG *d*<sub>N</sub>/*d*<sub>S</sub>, , Jukes-Cantor corrected) results for the alignment, **SARS-related-CoV_ALN.fasta**
+		3. `between-taxa_SNPGenie_taxaRestricted.tsv`, SNPGenie results for our alignment, **SARS-related-CoV_ALN.fasta**, but limiting to taxa that have intact *ORF3d* (SARS-CoV-2 and pangolin-CoV GX/P5L) or lacking full-length *ORF3b* (9 sequences; see Figure 4)
+		4. `between-taxa_OLGenie.tsv`, OLGenie (OLG *d*<sub>N</sub>/*d*<sub>S</sub>, Jukes-Cantor corrected) results for most products and frames of annotated genes in **SARS-related-CoV_ALN.fasta**
+		5. `between-taxa_OLGenie2.tsv`, OLGenie results for *ORF3a* in the ss13 frames to analyze *ORF3c* for **SARS-related-CoV_ALN.fasta**
+		6. `between-taxa_OLGenie_addNN.tsv`, curated OLGenie results for **SARS-related-CoV_ALN.fasta**, incorporating the Wei-Zhang method for codon 71 of *ORF3a* (NN change in *ORF3d*)
+		7. `between-host_SNPGenie.tsv`, SNPGenie (non-OLG *π*<sub>N</sub>/*π*<sub>S</sub>) results for our SARS-CoV-2 (GISAID) alignment
+		8. `between-host_OLGenie.tsv`, OLGenie (OLG *π*<sub>N</sub>/*π*<sub>S</sub>) results for our SARS-CoV-2 (GISAID) alignment
+		9. `within-host_SNPGenie.tsv`, SNPGenie results for our deeply sequenced within-host samples, before taking means by codon
+		10. `within-host_OLGenie.tsv`, OLGenie results for our deeply sequenced within-host samples, based on pseudo-alignments produced with **generate\_seqs\_from\_VCF.py**, before taking means by codon
+	* **Output**. 
+		1. `between-taxa_FINAL.tsv`, final, bootstrapped, OLG-aware Jukes-Cantor corrected *d*<sub>N</sub>/*d*<sub>S</sub> results for between-taxa (*Severe acute respiratory syndrome-related coronavirus*) data
+		2. `between-host_FINAL.tsv`, final, bootstrapped, OLG-aware *π*<sub>N</sub>/*π*<sub>S</sub> results for between-host (GISAID) data
+		3. `within-host_FINAL.tsv`: final, bootstrapped, OLG-aware *π*<sub>N</sub>/*π*<sub>S</sub> results for within-host (SRR) data
 
 * `generate_seqs_from_VCF.py` (*command-line script*)
 	* **Description**. Script to generate a `.fasta` with randomly interspersed variants (from VCF), for use with <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> (Nelson et al. 2020) or any software that requires a multiple sequence alignment input and does not depend upon linkage.
@@ -217,9 +249,9 @@ SARS-CoV-2_locate_genes.pl SARS-CoV-2_ALN.fasta
 		1. A new `*.fasta` multiple sequence alignment file with variants randomy interpersed at the frequencies defined in the VCF file.
 	* **Example**:
 
-```Shell
-generate_seqs_from_VCF.py reference.fasta variants.vcf 1000
-```
+			```Shell
+			generate_seqs_from_VCF.py reference.fasta variants.vcf 1000
+			```
 
 * `extract_seqs_by_timepoint.py` (*command-line script*)
 	* **Description**. Script to extract SARS-CoV-2 GISAID sequences by timepoint in a sliding window for analysis in Figure 5—figure supplement 2. Sliding window size (14 days) and step size (7 days) may be changed in the code. Day 0 is taken to be the earliest date on or following 2019/12/20; sequences sampled at earlier dates will be excluded.
@@ -231,9 +263,9 @@ generate_seqs_from_VCF.py reference.fasta variants.vcf 1000
 		1. One `*.fasta` multiple sequence alignment file for each 14 day window, containing just those sequences sampled during that period. For example, the first file will have the name `*_0to14.fasta` (window 1), the second file will have the name `*_7to21.fasta` (window 2), and so on.
 	* **Example**:
 
-```Shell
-extract_seqs_by_timepoint.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2_ALN.fasta
-```
+			```Shell
+			extract_seqs_by_timepoint.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2_ALN.fasta
+			```
 
 * `extract_seqs_by_location.py` (*command-line script*)
 	* **Description**. Script to extract SARS-CoV-2 GISAID sequences by location for analysis in Figure 5—figure supplement 2.
@@ -247,9 +279,9 @@ extract_seqs_by_timepoint.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2
 		1. One `*.fasta` multiple sequence alignment file with the name given by input argument 3 above, containing only those sequences matching the location given in argument 4 above.
 	* **Example**:
 
-```Shell
-extract_seqs_by_location.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2_ALN.fasta SARS-CoV-2_ALN_Asia.fasta Asia
-```
+			```Shell
+			extract_seqs_by_location.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2_ALN.fasta SARS-CoV-2_ALN_Asia.fasta Asia
+			```
 
 * `extract_positions_by_timepoint.py` (*command-line script*)
 	* **Description**. Track the frequency of alleles at specific sites in a sliding time window for allele trajectory analysis in Figure 5—figure supplement 2.
@@ -265,9 +297,9 @@ extract_seqs_by_location.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2_
 		1. One `.tsv` table with the name given by input argument 4 above, where each row is a unique combination of timepoint and genome position, and columns report the numbers and frequencies of the alleles for that timepoint and position.
 	* **Example**:
 
-```Shell
-extract_positions_by_timepoint.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2_ALN_Asia.fasta sites_to_track.tsv SARS-CoV-2_ALN_Asia_tracked.fasta 14 1
-```
+			```Shell
+			extract_positions_by_timepoint.py gisaid_cov2020_acknowledgement_table.tsv SARS-CoV-2_ALN_Asia.fasta sites_to_track.tsv SARS-CoV-2_ALN_Asia_tracked.fasta 14 1
+			```
 
 * `temporal_pi.R` (*manual analysis script*)
 	* **Description**. Calculate and plot nucleotide diversity (*π*) and location entropy as a function of time for Figure 5—figure supplement 2. The user must first use <a target="_blank" href="https://github.com/chasewnelson/SNPGenie">SNPGenie</a> (`snpgenie_within_group.pl`) to analyze the results of `extract_seqs_by_timepoint.py`, separately for each window.
@@ -294,17 +326,17 @@ extract_positions_by_timepoint.py gisaid_cov2020_acknowledgement_table.tsv SARS-
 		2. To STDOUT, reports the positions of the variable sites
 	* **Example**:
 
-```Shell
-extract_variable_columns_MSA.py SARS-CoV-2_ALN.fasta 0.02
-```
+			```Shell
+			extract_variable_columns_MSA.py SARS-CoV-2_ALN.fasta 0.02
+			```
 
 * `extract_variable_columns_MSA_aa.py` (*command-line script*)
 	* **Description**. Same as `extract_variable_columns_MSA.py`, but for amino acid sequences, necessary to account for STOP codons (potential non-word characters).
 	* **Example**:
 
-```Shell
-extract_variable_columns_MSA_aa.py SARS-CoV-2_ORF3d_aa_ALN.fasta 0.02
-```
+			```Shell
+			extract_variable_columns_MSA_aa.py SARS-CoV-2_ORF3d_aa_ALN.fasta 0.02
+			```
 
 
 
@@ -324,9 +356,9 @@ extract_variable_columns_MSA_aa.py SARS-CoV-2_ORF3d_aa_ALN.fasta 0.02
 		2. Prints summary statistics to STDOUT regarding the FREQUENCY, AC (allele count), and DP (total read depth at site) of passing and failing variants.
 	* **Example**:
 
-```Shell
-filter_VCF.py 1 0 29903 0.002 401
-```
+			```Shell
+			filter_VCF.py 1 0 29903 0.002 401
+			```
 
 * `summarize_intrahost_by_site.py` (*command-line script*)
 	* **Description**. Script to create a genome database cataloguing within-host variants. Automatically detects and analyzes all `.vcf` (variant call format) files in the working directory.
@@ -338,9 +370,9 @@ filter_VCF.py 1 0 29903 0.002 401
 		1. An output file by the name `*_site_database.tsv`. There are four rows for each position in the genome (defined by input 1), corresponding to each of the four possible nucleotide changes (including self-nucleotide). For example, a position with A in the reference (REF), there will four possible single nucleotide changes (ALT): A (self), C, G, and T. Each row is also labelled with up to two genes overlapping the site, and the codon, codon position, and amino acid encoded by each gene. Finally, each column following the metadata is a sample, giving the number of `REF,ALT` reads in that same at that position, if its VCF file contains a record. Note that the beginning of the file is largely unpopulated, as the first rows correspond to the 5'-UTR region lacking genes and coverage.
 	* **Example**:
 
-```Shell
-summarize_intrahost_by_site.py NC_045512.fasta NC_045512.gtf
-```
+			```Shell
+			summarize_intrahost_by_site.py NC_045512.fasta NC_045512.gtf
+			```
 
 
 ### <a name="additional-scripts"></a>Additional scripts
@@ -355,9 +387,9 @@ summarize_intrahost_by_site.py NC_045512.fasta NC_045512.gtf
 		1. one `.fasta` file for each CDS record in the GTF file. Just the DNA segment corresponding to the CDS coordinates of each record will be present in the resulting `.fasta` files.
 	* **Example**:
 
-```Shell
-extract_fasta_by_sites.pl Wuhan_Hu_1.fasta Wuhan_Hu_1.gtf
-```
+			```Shell
+			extract_fasta_by_sites.pl Wuhan_Hu_1.fasta Wuhan_Hu_1.gtf
+			```
 
 * `extract_seq_subset.py` (*command-line script*)
 	* **Description**.  Script for extracting a subset of sequences from a `.fasta` based on header ID.
@@ -368,9 +400,9 @@ extract_fasta_by_sites.pl Wuhan_Hu_1.fasta Wuhan_Hu_1.gtf
 		1. A multiple sequence alignment in `.fasta` format based on the file given by argument 2, but including only those sequences with headers provided in the file given by argument 1.
 	* **Example**:
 
-```Shell
-extract_seq_subset.py seq_ID_list.txt SARS-COV-2_ALN.fasta
-```
+			```Shell
+			extract_seq_subset.py seq_ID_list.txt SARS-COV-2_ALN.fasta
+			```
 
 * `translate_nt_seq_file.pl` (*command-line script*)
 	* **Description**. Script to translate a file of (un-aligned) nucleotide sequences and print the proteins.
@@ -381,9 +413,9 @@ extract_seq_subset.py seq_ID_list.txt SARS-COV-2_ALN.fasta
 		1. To STDOUT, print the translated sequences.
 	* **Example**:
 
-```Shell
-translate_nt_seq_file.pl coding_nt_seqs.fasta
-```
+			```Shell
+			translate_nt_seq_file.pl coding_nt_seqs.fasta
+			```
 
 
 ## <a name="acknowledgments"></a>Acknowledgments
