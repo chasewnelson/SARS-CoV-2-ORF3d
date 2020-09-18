@@ -8,42 +8,38 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 ## <a name="contents"></a>Contents
 
 * [Supplementary data](#supplementary-data)
-	* `SARS-related-CoV_ALN.fasta`: whole-genome multiple sequence alignment of *n*=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus* (between-taxa analysis)
-	* `SARS-related-CoV_ALN.gtf`: a `.gtf` file giving gene positions within **SARS-related-CoV_ALN.fasta**
-	* `Supplementary_Tables.xlsx`: Supplementary Tables referred to in the [manuscript](#citation)
+	* All supplementary data will be available on Zenodo.
+
 * [Supplementary scripts](#supplementary-scripts)
 	* [**Figure 1**. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members](#figure-1).
 		* `fig1B.bash`
-		* `ORF_length.R`: analyze ORF lengths for analysis in Figure 1—figure supplement 1
+		* `ORF_length.R`
 	* [**Figure 2**. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets](#figure-2).
-		* `aligned_fasta2haplotypes.pl`: determine all existing haplotypes in a set of sequences to compile a list of peptide search queries
-		* `riboseq_sliding_window.R`: calculate proportion of ribosome profiling reads in each frame
+		* `aligned_fasta2haplotypes.pl`
+		* `riboseq_sliding_window.R`
 	* [**Figure 3**. SARS-CoV-2 protein sequence properties](#figure-3).
-		* `generate_random_protein.py`: generate random proteins given amino acid content
-		* `tally_epitope_coverage.py`: tally epitope coverage in a sliding window
-		* `epitope_MHCI.R`: analyze MHC class I epitopes for Figure 3A
-		* `epitope_MHCII.R`: analyze MHC class II epitopes for Figure 3A
-		* `hydrophobicity_profiles_ORF3a.R`: analyze hydrophobicity profiles of the peptides encoded by the three forward-strand frames of *ORF3a* for Figure 3B, Figure 3—figure supplement 2, and Figure 3—figure supplement 3
+		* `generate_random_protein.py`
+		* `tally_epitope_coverage.py`
+		* `epitope_MHCI.R`
+		* `epitope_MHCII.R`
+		* `hydrophobicity_profiles_ORF3a.R`
 	* [**Figure 4**. Amino acid variation in proteins encoded by genes overlapping *ORF3a* in viruses of the species *Severe acute respiratory syndrome-related coronavirus*](#figure-4).
 	* [**Figure 5**. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels](#figure-5).
-		* `SARS-CoV-2_locate_genes.pl`: automatically find the coordinates of each SARS-CoV-2 gene in a nucleotide multiple sequence alignment
-		* `three_levels_diversity.R`: integrate and bootstrap SNPGenie and OLGenie results for each gene to produce the analysis underlying Figure 5
-		* `generate_seqs_from_VCF.py`: generate <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> input for within-host analysis
-		* `extract_seqs_by_timepoint.py`: extract SARS-CoV-2 GISAID sequences by timepoint in a sliding window for analysis in Figure 5—figure supplement 2
-		* `extract_seqs_by_location.py`: extract sequences by location for location-specific timepoint analyses in Figure 5—figure supplement 2
-		* `temporal_pi.R`: calculate and plot nucleotide diversity (*π*) and location entropy as a function of time for Figure 5—figure supplement 2
+		* `SARS-CoV-2_locate_genes.pl`
+		* `three_levels_diversity.R`
+		* `generate_seqs_from_VCF.py`
+		* `extract_seqs_by_timepoint.py`
+		* `extract_seqs_by_location.py`
+		* `temporal_pi.R`
 	* [**Figure 6**. Between-taxa sliding window analysis of natural selection on overlapping frames of *ORF3a*](#figure-6).
-		* `selection_sliding_windows.R`: calculate overlapping gene *d*<sub>N</sub>/*d*<sub>S</sub> in sliding windows for pairs of taxa shown in Figure 6 and supplement
+		* `selection_sliding_windows.R`
 	* [**Figure 7**. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF](#figure-7).
-		* `extract_variable_columns_MSA.py`: identify variable sites in a nucleotide multiple sequence alignment
-		* `extract_variable_columns_MSA_aa.py`: identify variable sites in an amino acid multiple sequence alignment
-	* [**Figure 8**. High-frequency within-host mutations](#figure-8).
-		* `filter_vcf.py`: apply a binomial false-discovery rate correction to within-host variants
-		* `summarize_intrahost_by_site.py`: create a genome database cataloguing within-host variants
-	* [**Additional scripts**](#additional-scripts).
-		* `extract_fasta_by_sites.pl`: extracts gene regions of a multiple sequence alignment
-		* `extract_seq_subset.py`: extract a subset of sequences from a `.fasta` file
-		* `translate_nt_seq_file.pl`: translate a file of protein-coding nucleotide sequences
+		* `extract_variable_columns_MSA.py`		* `extract_variable_columns_MSA_aa.py`	* [**Figure 8**. High-frequency within-host mutations](#figure-8).
+		* `filter_vcf.py`
+		* `summarize_intrahost_by_site.py`	* [**Additional scripts**](#additional-scripts).
+		* `extract_fasta_by_sites.pl`
+		* `extract_seq_subset.py`
+		* `translate_nt_seq_file.pl`
 * [Acknowledgments](#acknowledgments)
 * [Citation](#citation)
 * [Contact](#contact)
