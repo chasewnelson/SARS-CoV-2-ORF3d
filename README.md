@@ -23,6 +23,7 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 		* `tally_epitope_coverage.py`: tally epitope coverage in a sliding window
 		* `epitope_MHCI.R`: analyze MHC class I epitopes for Figure 3A
 		* `epitope_MHCII.R`: analyze MHC class II epitopes for Figure 3A
+		* `hydrophobicity_profiles_ORF3a.R`: analyze hydrophobicity profiles of the peptides encoded by the three forward-strand frames of *ORF3a* for Figure 3B, Figure 3—figure supplement 2, and Figure 3—figure supplement 3
 	* [**Figure 4**. Amino acid variation in proteins encoded by genes overlapping *ORF3a* in viruses of the species *Severe acute respiratory syndrome-related coronavirus*](#figure-4).
 	* [**Figure 5**. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels](#figure-5).
 		* `SARS-CoV-2_locate_genes.pl`: automatically find the coordinates of each SARS-CoV-2 gene in a nucleotide multiple sequence alignment
@@ -172,34 +173,45 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 	* **Description**. Analyze MHC class I epitopes for Figure 3A.
 	* **Requirements**. R libraries, ggrepel, patchwork, RColorBrewer, tidyverse.
 	* **Input**. 
-		1. `NetMHCpan_Wuhan-Hu-1.tsv`, NetMHCpan results for the basic protein set of the Wuhan-Hu-1 genome, plus *ORF3d*
+		1. `NetMHCpan_Wuhan-Hu-1.tsv`, NetMHCpan results for the basic protein set of the <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1 genome</a>, plus *ORF3d*
 		2. `NetMHCpan_Wuhan-Hu-1_additional.tsv`, NetMHCpan results for *ORF3c*, *ORF3d-2*, and *ORF3b* (short)
-		3. `MHCI_epitope_summary_tally.tsv`, result of **tally_epitope_coverage.py** applied to the proteins encoded by Wuhan-Hu-1
-		4. `MHCI_short_unannot_ORFs.tsv`, result of **tally_epitope_coverage.py** applied to the short unannotated ORFs encoded by Wuhan-Hu-1
-		5. `NetMHCpan_*_random_tally.tsv`, result of **tally_epitope_coverage.py** applied to 1000 randomized peptides based on each of the proteins encoded by Wuhan-Hu-1
+		3. `MHCI_epitope_summary_tally.tsv`, result of **tally_epitope_coverage.py** applied to the proteins encoded by <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1</a>
+		4. `MHCI_short_unannot_ORFs.tsv`, result of **tally_epitope_coverage.py** applied to the short unannotated ORFs encoded by <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1</a>
+		5. `NetMHCpan_*_random_tally.tsv`, result of **tally_epitope_coverage.py** applied to 1000 randomized peptides based on each of the proteins encoded by <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1</a>
 	* **Output**. 
 		1. `MHCI_epitope_summary_test.tsv`, compiled results for MHC class I analysis, used for Figure 3A
+		2. Figures
 
 * `epitope_MHCII.R` (*manual analysis script*)
 	* **Description**. Analyze MHC class II epitopes for Figure 3A.
 	* **Requirements**. R libraries, ggrepel, patchwork, RColorBrewer, tidyverse.
 	* **Input**. 
-		1. `NetMHCIIpan_Wuhan-Hu-1.tsv`, NetMHCIIpan results for the basic protein set of the Wuhan-Hu-1 genome, plus *ORF3d*
+		1. `NetMHCIIpan_Wuhan-Hu-1.tsv`, NetMHCIIpan results for the basic protein set of the <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1 genome</a>, plus *ORF3d*
 		2. `NetMHCIIpan_Wuhan-Hu-1_additional.tsv`, NetMHCIIpan results for *ORF3c*, *ORF3d-2*, and *ORF3b* (short)
-		3. `MHCII_epitope_summary_tally.tsv`, result of **tally_epitope_coverage.py** applied to the proteins encoded by Wuhan-Hu-1
-		4. `MHCII_short_unannot_ORFs.tsv`, result of **tally_epitope_coverage.py** applied to the short unannotated ORFs encoded by Wuhan-Hu-1
-		5. `NetMHCIIpan_*_random_tally.tsv`, result of **tally_epitope_coverage.py** applied to 1000 randomized peptides based on each of the proteins encoded by Wuhan-Hu-1
+		3. `MHCII_epitope_summary_tally.tsv`, result of **tally_epitope_coverage.py** applied to the proteins encoded by <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1</a>
+		4. `MHCII_short_unannot_ORFs.tsv`, result of **tally_epitope_coverage.py** applied to the short unannotated ORFs encoded by <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1</a>
+		5. `NetMHCIIpan_*_random_tally.tsv`, result of **tally_epitope_coverage.py** applied to 1000 randomized peptides based on each of the proteins encoded by <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1</a>
 	* **Output**. 
 		1. `MHCII_epitope_summary_test.tsv`, compiled results for MHC class II analysis, used for Figure 3A
+		2. Figures
+
+* `hydrophobicity_profiles_ORF3a.R`
+	* **Description**. Analyze hydrophobicity profiles of the peptides encoded by the three forward-strand frames of *ORF3a* for Figure 3B, Figure 3—figure supplement 2, and Figure 3—figure supplement 3.
+	* **Requirements**. R libraries patchwork, RColorBrewer, scales, tidyverse.
+	* **Input**. 
+		1. `hydrophobicity_profiles_ORF3a.csv`, output of the <a target="_blank" href="http://volpes.univie.ac.at/">VOLPES server</a> using the unitless hydrophobicity scale “FAC1” (Factor 1) with a sliding window of 25 amino acids
+	* **Output**. 
+		1. `hydrophobicity_profiles_ORF3a_corr.tsv`, correlations between hydrophobicity profiles in a sliding window of 25 residues
+		2. Figures
 
 
 ### <a name="figure-5"></a>Figure 5. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels
 
 * `SARS-CoV-2_locate_genes.pl` (*command-line script*)
-	* **Description**. Script to locate gene start and stop sites by finding the first sequences beginning and ending with (hardcoded) nucleotide sequences taken from the reference sequence: https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3. The code itself is a useful resource, as it contains the beginning and ending of most genes.
+	* **Description**. Script to locate gene start and stop sites by finding the first sequences beginning and ending with (hardcoded) nucleotide sequences taken from the reference sequence <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1</a>. The code itself is a useful resource, as it contains the beginning and ending of most genes.
 	* **Requirements**. Perl
 	* **Input**. Three unnamed arguments in the following order: 
-		1. A `.fasta` file containing a multiple sequence alignment of SARS-CoV-2 whole-genome nucleotide sequences. Note that the script may fail for alignments with gaps or highly diverged from the Wuhan-Hu-1 genotype.	
+		1. A `.fasta` file containing a multiple sequence alignment of SARS-CoV-2 whole-genome nucleotide sequences. Note that the script may fail for alignments with gaps or highly diverged from the <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1</a> genotype.	
 	* **Output**. 
 		1. To STDOUT, prints a `.gtf` file containing gene coordinates. Note that some genes may be missed if the alignment contains sequences highly diverged from SARS-CoV-2.
 	* **Example**:
@@ -229,7 +241,7 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 	* **Description**. Script to generate a `.fasta` with randomly interspersed variants (from VCF), for use with <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> (Nelson et al. 2020) or any software that requires a multiple sequence alignment input and does not depend upon linkage.
 	* **Requirements**. Python packages Bio, os, random, re, sys
 	* **Input**. Three unnamed arguments in the following order: 
-		1. A `.fasta` file containing exactly one (1) reference sequence (*e.g.*, SARS-CoV-2 Wuhan-Hu-1)
+		1. A `.fasta` file containing exactly one (1) reference sequence (*e.g.*, SARS-CoV-2 <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1</a>)
 		2. a `.vcf` file containing the variants of interest
 		3. number of sequences to generate (integer)	* **Output**. 
 		1. A new `*.fasta` multiple sequence alignment file with variants randomy interpersed at the frequencies defined in the VCF file.
@@ -335,7 +347,7 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 	* **Description**. Script to create a genome database cataloguing within-host variants. Automatically detects and analyzes all `.vcf` (variant call format) files in the working directory.
 	* **Requirements**. Python packages Bio, Bio.alphabet, Bio.seq, os, re, sys
 	* **Input**. One or more `.vcf` files in the working directory, and two unnamed arguments in the following order: 
-		1. A `.fasta` file containing exactly one (1) reference sequence (*e.g.*, SARS-CoV-2 Wuhan-Hu-1)
+		1. A `.fasta` file containing exactly one (1) reference sequence (*e.g.*, SARS-CoV-2 <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1</a>)
 		2. A `.gtf` file containing containing genes to be annotated in the output table, with up to two genes overlapping each site (others will be ignored)
 	* **Output**. 
 		1. An output file by the name `*_site_database.tsv`. There are four rows for each position in the genome (defined by input 1), corresponding to each of the four possible nucleotide changes (including self-nucleotide). For example, a position with A in the reference (REF), there will four possible single nucleotide changes (ALT): A (self), C, G, and T. Each row is also labelled with up to two genes overlapping the site, and the codon, codon position, and amino acid encoded by each gene. Finally, each column following the metadata is a sample, giving the number of `REF,ALT` reads in that same at that position, if its VCF file contains a record. Note that the beginning of the file is largely unpopulated, as the first rows correspond to the 5'-UTR region lacking genes and coverage.
