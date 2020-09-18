@@ -175,7 +175,7 @@ tally_epitope_coverage.py ORF3d_random.tsv 9
 
 * `epitope_MHCI.R` (*manual analysis script*)
 	* **Description**. Analyze MHC class I epitopes for Figure 3A.
-	* **Requirements**. R libraries feather, ggrepel, patchwork, RColorBrewer, tidyverse.
+	* **Requirements**. R libraries, ggrepel, patchwork, RColorBrewer, tidyverse.
 	* **Input**. 
 		1. `frameshift_results.txt`, produced by `frameshift_analysis.bash`.
 	* **Output**. 
