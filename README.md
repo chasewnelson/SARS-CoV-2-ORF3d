@@ -129,9 +129,9 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 			aligned_fasta2haplotypes.pl SARSCOV2_ORF3d_aa.fasta
 
 * `riboseq_sliding_window.R` (*command-line script*)
-	* **Description**. Sliding window script to calculate proportion of reads in each frame for a specified read length and window size, separately for each treatment combination.
+	* **Description**. Sliding window script to calculate proportion of reads in each frame for a specified read length and window size, separately for each condition (treatment/time).
 	* **Input**. Unnamed arguments in the following order: 
-		1. `INFILE_FRAMES`: file with condition metadata for samples. Columns described within script
+		1. `INFILE_FRAMES`: file with condition metadata for samples (here, **riboseq_sample_metadata.tsv**). Columns should be in the following order: sample, condition, time, and treatment, where condition is the combination of time and treatment (see script and file)
 		2. `INFILE_READS`: file with read data. Columns described within script
 		3. `WIN_SIZE`: size of the sliding window (integer)
 		4. `READ_LEN`: length of reads to consider (integer)
@@ -139,7 +139,17 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 		1. Table in `.tsv` format giving the sum of reads in each frame for each condition and position (start of window).
 	* **Example**:
 
-			Rscript riboseq_sliding_window.R frames_table.txt mapped_reads_by_readlength_ALL.tsv 30 30
+			Rscript riboseq_sliding_window.R riboseq_sample_metadata.tsv mapped_reads_by_readlength_ALL.tsv 30 30
+
+* `riboseq.R` (*manual analysis script*)
+	* **Description**. Analyze all ribosome profiling data to generate for analyses underlying Figure 2 and its copious supplement.
+	* **Requirements**. R libraries patchwork, RColorBrewer, scales, tidyverse.
+	* **Input**. 
+		1. `mapped_reads_by_readlength.tsv`, ribosome profiling read depth by sample, read length, position, and frame, after mapping of data from Finkel et al. (2020)
+		2. `riboseq_sample_metadata.tsv`, file with condition metadata for samples with columns in the following order: sample, condition, time, and treatment, where condition is the combination of time and treatment (see file)
+		3. `mapped_reads_by_readlength_sumSamples_win*read*.tsv`, results of the sliding window script **riboseq\_sliding\_window.R** for various window sizes (win\*) and read length (read\*) summarizing the proportion of reads mapping to each frame for each condition (treatment/time)
+	* **Output**. 
+		1. Figures
 
 
 ### <a name="figure-3"></a>Figure 3. SARS-CoV-2 protein sequence properties
@@ -195,7 +205,7 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 		1. `MHCII_epitope_summary_test.tsv`, compiled results for MHC class II analysis, used for Figure 3A
 		2. Figures
 
-* `hydrophobicity_profiles_ORF3a.R`
+* `hydrophobicity_profiles_ORF3a.R` (*manual analysis script*)
 	* **Description**. Analyze hydrophobicity profiles of the peptides encoded by the three forward-strand frames of *ORF3a* for Figure 3B, Figure 3—figure supplement 2, and Figure 3—figure supplement 3.
 	* **Requirements**. R libraries patchwork, RColorBrewer, scales, tidyverse.
 	* **Input**. 
@@ -422,6 +432,7 @@ Other queries should be addressed to the corresponding authors:
 
 ## <a name="references"></a>References
 
+* Finkel Y, Mizrahi O, Nachshon A, Weingarten-Gabbay S, Morgenstern D, Yahalom-Ronen Y, Tamir H, Achdout H, Stein D, Israeli O, Adi B-D, Melamed S, Weiss S, Israely T, Paran N, Schwartz M, Stern-Ginossar N. 2020. <a target="_blank" href="https://www.nature.com/articles/s41586-020-2739-1">The coding capacity of SARS-CoV-2</a>. *Nature*, **in press**, doi: https://doi.org/10.1038/s41586-020-2739-1
 * Nelson CW, Ardern Z, Wei X. 2020. <a target="_blank" href="https://academic.oup.com/mbe/article/37/8/2440/5815567">OLGenie: estimating natural selection to predict functional overlapping genes</a>. *Molecular Biology and Evolution* **37**(8):2440–2449. doi: https://doi.org/10.1093/molbev/msaa087
 * Nelson CW, Moncla LH, Hughes AL. 2015. <a target="_blank" href="https://academic.oup.com/bioinformatics/article/31/22/3709/241742">SNPGenie: estimating evolutionary parameters to detect natural selection using pooled next-generation sequencing data</a>. *Bioinformatics* **31**(22):3709–3711. doi: https://doi.org/10.1093/bioinformatics/btv449
 * Schlub TE, Buchmann JP, Holmes EC. 2018. <a target="_blank" href="https://academic.oup.com/mbe/article/35/10/2572/5067730">A simple method to detect candidate overlapping genes in viruses using single genome sequences</a>. *Molecular Biology and Evolution* **35**(10):2572–2581. doi: https://doi.org/10.1093/molbev/msy155

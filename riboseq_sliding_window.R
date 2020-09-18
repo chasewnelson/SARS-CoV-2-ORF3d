@@ -67,11 +67,7 @@ cat("\n\nOUTPUT will be written to: ", OUTFILE_NAME, "\n")
 ### INPUT FILES
 ## File 1
 suppressMessages(frames_table <- read_tsv(INFILE_FRAMES,
-                                          col_names = c("prop_frame0", "prop_frame1", "prop_frame2", "read_length", 
-                                                        "read_count_frame0", "frame_frame0", 
-                                                        "read_count_frame1", "frame_frame1", 
-                                                        "read_count_frame2", "frame_frame2", 
-                                                        "sample", "condition")))
+                                          col_names = c("sample", "condition", "time", "treatment")))
 
 ## File 2
 suppressMessages(mapped_reads_by_readlength <- read_tsv(INFILE_READS,
