@@ -32,8 +32,8 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 		* `extract_seqs_by_timepoint.py`: extract SARS-CoV-2 GISAID sequences by timepoint in a sliding window for analysis in Figure 5—figure supplement 2
 		* `extract_seqs_by_location.py`: extract sequences by location for location-specific timepoint analyses in Figure 5—figure supplement 2
 		* `temporal_pi.R`: calculate and plot nucleotide diversity (*π*) and location entropy as a function of time for Figure 5—figure supplement 2
-		
 	* [**Figure 6**. Between-taxa sliding window analysis of natural selection on overlapping frames of *ORF3a*](#figure-6).
+		* `selection_sliding_windows.R`: calculate overlapping gene *d*<sub>N</sub>/*d*<sub>S</sub> in sliding windows for pairs of taxa shown in Figure 6 and supplement
 	* [**Figure 7**. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF](#figure-7).
 		* `extract_variable_columns_MSA.py`: identify variable sites in a nucleotide multiple sequence alignment
 		* `extract_variable_columns_MSA_aa.py`: identify variable sites in an amino acid multiple sequence alignment
@@ -309,7 +309,24 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 		2. `timepoint_seq_IDs.txt`, a table with sequence IDs (column `ID`,  *i.e.*, EPI_*) for each time window (column `time_period`, *e.g.*, "0to14")
 		3. `gisaid_cov2020_acknowledgement_table.tsv`
 	* **Output**. 
-		1. Figures and statistics related to Figure 5—figure supplement 2
+		1. Figure 5 and supplement; statistics
+
+
+
+
+### <a name="figure-6"></a>Figure 6. Between-taxa sliding window analysis of natural selection on overlapping frames of *ORF3a*
+
+* `selection_sliding_windows.R` (*manual analysis script*) 
+	* **Description**. Visualize overlapping gene *d*<sub>N</sub>/*d*<sub>S</sub>, calculated with OLGenie, in sliding windows for pairs of taxa shown in Figure 6 and supplement
+	* **Requirements**. R libraries boot, RColorBrewer, tidyverse.
+	* **Input**.
+		1. `SARS-CoV-2-ref_ORF3a_ss12_windows.tsv`, OLGenie (*d*<sub>NN</sub>/*d*<sub>NS</sub>) results in a sliding window (window size=50 codons, step size=1 codon) for SARS-CoV-2 against each other taxon (every pair) for *ORF3a* reading frame ss12 (i.e., the frame of *ORF3d*)
+		2. `SARS-CoV-2-ref_ORF3a_ss12_windows_pangolin.tsv`, OLGenie results in a sliding window for SARS-CoV-2 against pangolin GX/P5L, *i.e.*, the only other taxon in which *ORF3d* is intact
+		3. `SARS-CoV-2-ref_N_ss13_windows.tsv`, OLGenie results in a sliding window for SARS-CoV-2 against each other taxon (every pair) for *N* reading frame ss13 (i.e., the frame of *ORF9b* and *ORF9c*)
+		4. `SARS-ref_ORF3a_ss13_windows.tsv`, OLGenie results in a sliding window for SARS-CoV against each other taxon (every pair) for *ORF3a* reading frame ss13 (i.e., the frame of *ORF3c* and *ORF3b*)
+		5. `SARS-ref_N_ss13_windows.tsv`, OLGenie results in a sliding window for SARS-CoV against each other taxon (every pair) for *N* reading frame ss13 (i.e., the frame of *ORF9b* and *ORF9c*)
+	* **Output**. 
+		1. Figure 6 and supplement; statistics
 
 
 ### <a name="figure-7"></a>Figure 7. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF
