@@ -1,3 +1,5 @@
+<img src="https://github.com/chasewnelson/SARS-CoV-2-ORF3d/images/cover_image.png?raw=true" title="Overlapping gene products" alt="Overlapping gene products" align="middle">
+
 # SARS-CoV-2 *ORF3d*
 
 Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
@@ -19,6 +21,8 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 	* [**Figure 3**. SARS-CoV-2 protein sequence properties](#figure-3).
 		* `generate_random_protein.py`: generate random proteins given amino acid content
 		* `tally_epitope_coverage.py`: tally epitope coverage in a sliding window
+		* `epitope_MHCI.R`: analyze MHC class I epitopes for Figure 3A
+		* `epitope_MHCII.R`: analyze MHC class II epitopes for Figure 3A
 	* [**Figure 4**. Amino acid variation in proteins encoded by genes overlapping *ORF3a* in viruses of the species *Severe acute respiratory syndrome-related coronavirus*](#figure-4).
 	* [**Figure 5**. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels](#figure-5).
 		* `SARS-CoV-2_locate_genes.pl`: automatically find the coordinates of each SARS-CoV-2 gene in a nucleotide multiple sequence alignment
@@ -159,8 +163,8 @@ generate_random_protein.py ORF3d_aa.fasta 57 1000
 	* **Description**. Script for tallying epitope coverage for one protein product in a sliding window.
 	* **Requirements**. Python packages os, sys
 	* **Input**. Two unnamed arguments in the following order: 
-		1. input file in `.tsv` format; NetMHCPan output file with 5 columns in this order: ID, NB (number MHC alleles bound based on NetMHCPan output), product, codon_start, codon_end 
-		2. length (integer) of linear peptides used in the epitope analysis (9 for MHC I with NetMHCPan; 15 for MHC II with NetMHCIIPan)
+		1. input file in `.tsv` format; NetMHCpan output file with 5 columns in this order: ID, NB (number MHC alleles bound based on NetMHCpan output), product, codon_start, codon_end 
+		2. length (integer) of linear peptides used in the epitope analysis (9 for MHC I with NetMHCIIpan; 15 for MHC II with NetMHCIIpan)
 	* **Output**. 
 		1. Table in `.tsv` format giving the sum of bound epitopes overlapping each site.
 	* **Example**:
@@ -168,6 +172,18 @@ generate_random_protein.py ORF3d_aa.fasta 57 1000
 ```Shell
 tally_epitope_coverage.py ORF3d_random.tsv 9
 ```
+
+* `epitope_MHCI.R` (*manual analysis script*)
+	* **Description**. Analyze MHC class I epitopes for Figure 3A.
+	* **Requirements**. R libraries feather, ggrepel, patchwork, RColorBrewer, tidyverse.
+	* **Input**. 
+		1. `frameshift_results.txt`, produced by `frameshift_analysis.bash`.
+	* **Output**. 
+		1. `ORF_length_heatmap_data.tsv`, p-values for each internal overlapping gene within a previously annotated gene, redundatly annotated on site-by-site basis.
+
+
+
+
 
 
 ### <a name="figure-5"></a>Figure 5. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels
