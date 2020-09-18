@@ -52,11 +52,17 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 
 The following supplementary data are provided in this GitHub repository:
 
-1. `SARS-related-CoV_ALN.fasta`: whole-genome multiple sequence alignment of *n*=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus* (between-taxa analysis). See [manuscript](#citation) for details. Note that the pangolin-CoV GD/1 sequence has been masked as `N`, because GISAID permission is required for data access.
+1. `MHC*`: input, intermediate, or output files for the epitope analyses conducted in **epitope_MHCI.R** and **epitope_MHCII.R**
 
-2. `SARS-related-CoV_ALN.gtf`: Gene Transfer Format (GTF) file giving gene positions within `SARS-related-CoV_ALN.fasta`.
+2. `randomized_*_aa.fasta`: 1000 randomized peptides constructed using the amino acid sequence of each protein; see script **generate_random_protein.py**.
 
-3. `Supplementary_Tables.xlsx`: Supplementary Tables referred to in the [manuscript](#citation).
+3. `SARS-related-CoV_ALN.fasta`: whole-genome multiple sequence alignment of *n*=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus* (between-taxa analysis). See [manuscript](#citation) for details. Note that the pangolin-CoV GD/1 sequence has been masked as `N`, because GISAID permission is required for data access.
+
+4. `SARS-related-CoV_ALN.gtf`: Gene Transfer Format (GTF) file giving gene positions within **SARS-related-CoV_ALN.fasta**.
+
+5. `Supplementary_Tables.xlsx`: Supplementary Tables referred to in the [manuscript](#citation).
+
+
 
 
 ## <a name="supplementary-scripts"></a>Supplementary scripts
@@ -163,7 +169,7 @@ generate_random_protein.py ORF3d_aa.fasta 57 1000
 	* **Description**. Script for tallying epitope coverage for one protein product in a sliding window.
 	* **Requirements**. Python packages os, sys
 	* **Input**. Two unnamed arguments in the following order: 
-		1. input file in `.tsv` format; NetMHCpan output file with 5 columns in this order: ID, NB (number MHC alleles bound based on NetMHCpan output), product, codon_start, codon_end 
+		1. input file in `.tsv` format; NetMHCpan output file with 5 columns in this order: ID, NB (number MHC alleles bound based on NetMHCpan output), product, codon\_start, codon\_end 
 		2. length (integer) of linear peptides used in the epitope analysis (9 for MHC I with NetMHCIIpan; 15 for MHC II with NetMHCIIpan)
 	* **Output**. 
 		1. Table in `.tsv` format giving the sum of bound epitopes overlapping each site.
@@ -177,7 +183,7 @@ tally_epitope_coverage.py ORF3d_random.tsv 9
 	* **Description**. Analyze MHC class I epitopes for Figure 3A.
 	* **Requirements**. R libraries, ggrepel, patchwork, RColorBrewer, tidyverse.
 	* **Input**. 
-		1. `frameshift_results.txt`, produced by `frameshift_analysis.bash`.
+		1. `frameshift_results.txt`, produced by **frameshift_analysis.bash**.
 	* **Output**. 
 		1. `ORF_length_heatmap_data.tsv`, p-values for each internal overlapping gene within a previously annotated gene, redundatly annotated on site-by-site basis.
 
