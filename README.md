@@ -34,9 +34,11 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 	* [**Figure 6**. Between-taxa sliding window analysis of natural selection on overlapping frames of *ORF3a*](#figure-6).
 		* `selection_sliding_windows.R`
 	* [**Figure 7**. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF](#figure-7).
-		* `extract_variable_columns_MSA.py`		* `extract_variable_columns_MSA_aa.py`	* [**Figure 8**. High-frequency within-host mutations](#figure-8).
+		* `extract_variable_columns_MSA.py`		* `extract_variable_columns_MSA_aa.py`
+	* [**Figure 8**. High-frequency within-host mutations](#figure-8).
 		* `filter_vcf.py`
-		* `summarize_intrahost_by_site.py`	* [**Additional scripts**](#additional-scripts).
+		* `summarize_intrahost_by_site.py`
+	* [**Additional scripts**](#additional-scripts).
 		* `extract_fasta_by_sites.pl`
 		* `extract_seq_subset.py`
 		* `translate_nt_seq_file.pl`
