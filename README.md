@@ -8,13 +8,11 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 ## <a name="contents"></a>Contents
 
 * [Supplementary data](#supplementary-data)
-	* All supplementary are available at Zenodo **TODO**
-
 * [Supplementary scripts](#supplementary-scripts)
 	* [**Figure 1**. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members](#figure-1).
+		* **TODO: NEED ZAC'S SCRIPTS**
 		* `fig1B.bash`
 		* `ORF_length.R`
-		* **TODO: NEED ZAC'S SCRIPTS**
 	* [**Figure 2**. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets](#figure-2).
 		* `aligned_fasta2haplotypes.pl`
 		* `riboseq_sliding_window.R`
@@ -41,9 +39,11 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 	* [**Figure 7**. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF](#figure-7).
 		* `extract_variable_columns_MSA.py`		* `extract_variable_columns_MSA_aa.py`
 	* [**Figure 8**. High-frequency within-host mutations](#figure-8).
+		* **TODO: NEED ZAC'S SCRIPTS**
 		* `filter_vcf.py`
 		* `summarize_intrahost_by_site.py`
 	* [**Additional scripts**](#additional-scripts).
+		* **TODO: NEED ZAC & APRIL SCRIPTS**
 		* `extract_fasta_by_sites.pl`
 		* `extract_seq_subset.py`
 		* `translate_nt_seq_file.pl`
@@ -55,19 +55,15 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 
 ## <a name="supplementary-data"></a>Supplementary data
 
-**TODO** move to Zotero 
+**TODO** All supplementary are available at Zenodo. For easy access, the three most important supplementary data files are available in the `/data/` directory of this repository:
 
-The following supplementary data are provided in this GitHub repository:
+1. `SARS-related-CoV_ALN.fasta`: whole-genome multiple sequence alignment of *n*=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus* (between-taxa analysis). See [manuscript](#citation) for details. Note that the pangolin-CoV GD/1 sequence has been masked as `N`, because GISAID permission is required for data access.
 
-1. `MHC*`: input, intermediate, or output files for the epitope analyses conducted in **epitope_MHCI.R** and **epitope_MHCII.R**
+2. `SARS-related-CoV_ALN.gtf`: Gene Transfer Format (GTF) file giving gene positions within **SARS-related-CoV_ALN.fasta**.
 
-2. `randomized_*_aa.fasta`: 1000 randomized peptides constructed using the amino acid sequence of each protein; see script **generate_random_protein.py**.
+3. `SARS-CoV-2.gtf`: Gene Transfer Format (GTF) file giving gene positions within the SARS-CoV-2 <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1 genome</a> genome. Records are ordered by start site in the genome. Full gene regions are given, as well as just those segments of the gene overlapping (OL) or not overlapping (NOL) other genes. For example, the positions of *ORF3d* are 25524-25697; the positions of ORF3a codons overlapping *ORF3d* (ORF3a_OL_ORF3d) are 25522-25698; and the positions of *ORF3a* codons involved in the *ORF3a*/*ORF3c*/*ORF3d* triple overlap (ORF3a_OL_ORF3c_OL_ORF3d) are 25522-25584. *ORF3b* refers to the first short (23 codon) ORF in SARS-CoV-2 and is considered OL; the remainder of the region homologous to *ORF3b* in SARS-CoV is not considered OL.
 
-3. `SARS-related-CoV_ALN.fasta`: whole-genome multiple sequence alignment of *n*=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus* (between-taxa analysis). See [manuscript](#citation) for details. Note that the pangolin-CoV GD/1 sequence has been masked as `N`, because GISAID permission is required for data access.
-
-4. `SARS-related-CoV_ALN.gtf`: Gene Transfer Format (GTF) file giving gene positions within **SARS-related-CoV_ALN.fasta**.
-
-5. `Supplementary_Tables.xlsx`: Supplementary Tables referred to in the [manuscript](#citation).
+4. `Supplementary_Tables.xlsx`: Supplementary Tables referred to in the [manuscript](#citation).
 
 
 ## <a name="supplementary-scripts"></a>Supplementary scripts
