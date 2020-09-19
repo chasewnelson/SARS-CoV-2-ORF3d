@@ -70,9 +70,9 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 
 Scripts are arranged by Figure, and therefore by analysis. Although we are not able to provide all input data files because of the <a target="_blank" href="https://www.gisaid.org/">GISAID</a> privacy agreement, users can apply for their own access. Every effort has been made to describe all steps and input, here or in each script's comments. Where applicable, scripts are arranged in the order they should be executed. The scripts are of two types: 
 
-1. ***Command-line*** scripts are intended to be executed from the bash command line with the specified arguments. 
+1. ***Command-line***. These scripts are intended to be executed from the bash command line with the specified arguments. 
 
-2. ***Manual analysis*** R scripts documenting the bulk of our data analyses and visualizations. These are intended to be executed manually line-by-line in R/RStudio. The user should replace path names and arguments with the appropriate values for the user's analysis and directories. Attention has been drawn to lines or variables that should be modified by the user with the flag: `CHANGE THIS`
+2. ***Manual analysis***. These R scripts document the bulk of our data analyses and visualizations. They are intended to be executed manually line-by-line in R/RStudio. The user should replace path names and arguments with the appropriate values for the user's analysis and directories. Attention has been drawn to lines or variables that should be modified by the user with the flag: `CHANGE THIS`.
 
 
 ### <a name="figure-1"></a>Figure 1. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members
