@@ -17,6 +17,8 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 	* [**Figure 2**. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets](#figure-2).
 		* `aligned_fasta2haplotypes.pl`
 		* `riboseq_sliding_window.R`
+		* `riboseq.R`
+		* `mass-spec_vs_riboseq.R`
 	* [**Figure 3**. SARS-CoV-2 protein sequence properties](#figure-3).
 		* `generate_random_protein.py`
 		* `tally_epitope_coverage.py`
@@ -145,7 +147,17 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 		2. `riboseq_sample_metadata.tsv`, file with condition metadata for samples with columns in the following order: sample, condition, time, and treatment, where condition is the combination of time and treatment (see file)
 		3. `mapped_reads_by_readlength_sumSamples_win*read*.tsv`, results of the sliding window script **riboseq\_sliding\_window.R** for various window sizes (win\*) and read length (read\*) summarizing the proportion of reads mapping to each frame for each condition (treatment/time)
 	* **Output**. 
-		1. Figures
+		1. Figures and statistics
+
+* `mass-spec_vs_riboseq.R` (*manual analysis script*)
+	* **Description**. Analyze and compare expression estimates from mass spectrometry to those from ribosome profiling read depth for Figure 2 and supplement.
+	* **Requirements**. R libraries RColorBrewer, scales, tidyverse.
+	* **Input**. 
+		1. `riboseq_upstream_peaks.tsv`, ribosome profile profiling read depth near gene start sites, shown in Figure 2A, derived from analysis of data from Finkel et al. (2020) and wrangled in the script **riboseq.R**
+		2. `mapped_reads_by_readlength_wCDS.tsv`, ribosome profiling read depth by sample, read length, position, and frame. Source data underlying Figure 2C, derived from analysis of data from Finkel et al. (2020), produced in the script **riboseq.R**.
+		3. `expression_data_by_gene.tsv`, summary of expression estimates from both ribosome profiling and mass spectrometry for all gene detectable by mass spectrometry
+	* **Output**. 
+		1. Figures and statistics
 
 
 ### <a name="figure-3"></a>Figure 3. SARS-CoV-2 protein sequence properties
@@ -186,7 +198,7 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 		5. `NetMHCpan_*_random_tally.tsv`, result of **tally_epitope_coverage.py** applied to 1000 randomized peptides based on each of the proteins encoded by <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1</a>
 	* **Output**. 
 		1. `MHCI_epitope_summary_test.tsv`, compiled results for MHC class I analysis, used for Figure 3A
-		2. Figures
+		2. Figures and statistics
 
 * `epitope_MHCII.R` (*manual analysis script*)
 	* **Description**. Analyze MHC class II epitopes for Figure 3A.
@@ -199,7 +211,7 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 		5. `NetMHCIIpan_*_random_tally.tsv`, result of **tally_epitope_coverage.py** applied to 1000 randomized peptides based on each of the proteins encoded by <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1</a>
 	* **Output**. 
 		1. `MHCII_epitope_summary_test.tsv`, compiled results for MHC class II analysis, used for Figure 3A
-		2. Figures
+		2. Figures and statistics
 
 * `hydrophobicity_profiles_ORF3a.R` (*manual analysis script*)
 	* **Description**. Analyze hydrophobicity profiles of the peptides encoded by the three forward-strand frames of *ORF3a* for Figure 3B, Figure 3—figure supplement 2, and Figure 3—figure supplement 3.
@@ -208,7 +220,7 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 		1. `hydrophobicity_profiles_ORF3a.csv`, output of the <a target="_blank" href="http://volpes.univie.ac.at/">VOLPES server</a> using the unitless hydrophobicity scale “FAC1” (Factor 1) with a sliding window of 25 amino acids
 	* **Output**. 
 		1. `hydrophobicity_profiles_ORF3a_corr.tsv`, correlations between hydrophobicity profiles in a sliding window of 25 residues
-		2. Figures
+		2. Figures and statistics
 
 
 ### <a name="figure-5"></a>Figure 5. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels
@@ -305,7 +317,7 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 		2. `timepoint_seq_IDs.txt`, a table with sequence IDs (column `ID`,  *i.e.*, EPI_*) for each time window (column `time_period`, *e.g.*, "0to14")
 		3. `gisaid_cov2020_acknowledgement_table.tsv`
 	* **Output**. 
-		1. Figure 5 and supplement; statistics
+		1. Figures and statistics
 
 
 
@@ -322,7 +334,7 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 		4. `SARS-ref_ORF3a_ss13_windows.tsv`, OLGenie results in a sliding window for SARS-CoV against each other taxon (every pair) for *ORF3a* reading frame ss13 (i.e., the frame of *ORF3c* and *ORF3b*)
 		5. `SARS-ref_N_ss13_windows.tsv`, OLGenie results in a sliding window for SARS-CoV against each other taxon (every pair) for *N* reading frame ss13 (i.e., the frame of *ORF9b* and *ORF9c*)
 	* **Output**. 
-		1. Figure 6 and supplement; statistics
+		1. Figures and statistics
 
 
 ### <a name="figure-7"></a>Figure 7. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF
