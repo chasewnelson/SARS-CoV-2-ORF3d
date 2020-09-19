@@ -63,8 +63,6 @@ The following supplementary data are provided in this GitHub repository:
 5. `Supplementary_Tables.xlsx`: Supplementary Tables referred to in the [manuscript](#citation).
 
 
-
-
 ## <a name="supplementary-scripts"></a>Supplementary scripts
 
 Scripts are arranged by Figure, and therefore by analysis. Although we are not able to provide all input data files because of the <a target="_blank" href="https://www.gisaid.org/">GISAID</a> privacy agreement, users can apply for their own access. Every effort has been made to describe all steps and input, here or in each script's comments. Where applicable, scripts are arranged in the order they should be executed. The scripts are of two types: 
