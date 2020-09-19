@@ -14,11 +14,13 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 		* `fig1B.bash`
 		* `ORF_length.R`
 	* [**Figure 2**. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets](#figure-2).
+		* **TODO: NEED ZAC'S SCRIPTS**
 		* `aligned_fasta2haplotypes.pl`
 		* `riboseq_sliding_window.R`
 		* `riboseq.R`
 		* `mass-spec_vs_riboseq.R`
 	* [**Figure 3**. SARS-CoV-2 protein sequence properties](#figure-3).
+		* **TODO: NEED ZAC'S SCRIPTS**
 		* `generate_random_protein.py`
 		* `tally_epitope_coverage.py`
 		* `epitope_MHCI.R`
@@ -41,7 +43,7 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 		* `extract_variable_columns_MSA.py`
 		* `extract_variable_columns_MSA_aa.py`
 	* [**Figure 8**. High-frequency within-host mutations](#figure-8).
-		* **TODO: NEED ZAC'S SCRIPTS**
+		* **TODO: NEED ZAC & APRIL SCRIPTS**
 		* `filter_vcf.py`
 		* `summarize_intrahost_by_site.py`
 	* [**Additional scripts**](#additional-scripts).
