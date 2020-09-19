@@ -2,18 +2,19 @@
 
 # SARS-CoV-2 *ORF3d*
 
-Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
+Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 
 
 ## <a name="contents"></a>Contents
 
 * [Supplementary data](#supplementary-data)
-	* All supplementary data will be available on Zenodo.
+	* All supplementary are available at Zenodo **TODO**
 
 * [Supplementary scripts](#supplementary-scripts)
 	* [**Figure 1**. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members](#figure-1).
 		* `fig1B.bash`
 		* `ORF_length.R`
+		* **TODO: NEED ZAC'S SCRIPTS**
 	* [**Figure 2**. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets](#figure-2).
 		* `aligned_fasta2haplotypes.pl`
 		* `riboseq_sliding_window.R`
@@ -26,10 +27,12 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 		* `epitope_MHCII.R`
 		* `hydrophobicity_profiles_ORF3a.R`
 	* [**Figure 4**. Amino acid variation in proteins encoded by genes overlapping *ORF3a* in viruses of the species *Severe acute respiratory syndrome-related coronavirus*](#figure-4).
+		* **TODO: NEED ZAC'S SCRIPTS**
 	* [**Figure 5**. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels](#figure-5).
 		* `SARS-CoV-2_locate_genes.pl`
-		* `three_levels_diversity.R`
 		* `generate_seqs_from_VCF.py`
+		* `three_levels_diversity.R`
+		* `selection_vs_expression.R`
 		* `extract_seqs_by_timepoint.py`
 		* `extract_seqs_by_location.py`
 		* `temporal_pi.R`
@@ -52,6 +55,8 @@ Supplementary data and scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF
 
 ## <a name="supplementary-data"></a>Supplementary data
 
+**TODO** move to Zotero 
+
 The following supplementary data are provided in this GitHub repository:
 
 1. `MHC*`: input, intermediate, or output files for the epitope analyses conducted in **epitope_MHCI.R** and **epitope_MHCII.R**
@@ -71,22 +76,8 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 
 1. ***Command-line*** scripts are intended to be executed from the bash command line with the specified arguments. 
 
-2. ***Manual analysis*** scripts are R scripts or Python Jupyter Notebooks documenting the bulk of our data analyses and visualizations. These are intended to be executed manually line-by-line in R/RStudio or Jupyter. The use should replace path names and arguments with the appropriate values for the user's analysis and directories. Attention has been drawn to lines or variables that should be modified by the user with the flag: `<-- CHANGE THIS`
+2. ***Manual analysis*** R scripts documenting the bulk of our data analyses and visualizations. These are intended to be executed manually line-by-line in R/RStudio. The user should replace path names and arguments with the appropriate values for the user's analysis and directories. Attention has been drawn to lines or variables that should be modified by the user with the flag: `CHANGE THIS`
 
-
-### TEMPLATE
-* `name.py` (*command-line script*)
-	* **Description**. XXX.
-	* **Requirements**. XXX.
-	* **Input**.
-		1. `frameshift_results.txt`
-	* **Intermediate files**.
-		1. `ORF_length_heatmap_data.tsv`
-	* **Output**. XXX.
-	* **Example**:
-
-			XXX
-		
 
 ### <a name="figure-1"></a>Figure 1. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members
 
@@ -236,6 +227,18 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 
 			SARS-CoV-2_locate_genes.pl SARS-CoV-2_ALN.fasta
 
+* `generate_seqs_from_VCF.py` (*command-line script*)
+	* **Description**. Script to generate a `.fasta` with randomly interspersed variants (from VCF), for use with <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> (Nelson et al. 2020) or any software that requires a multiple sequence alignment input and does not depend upon linkage.
+	* **Requirements**. Python packages Bio, os, random, re, sys
+	* **Input**. Three unnamed arguments in the following order: 
+		1. A `.fasta` file containing exactly one (1) reference sequence (*e.g.*, SARS-CoV-2 <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1</a>)
+		2. a `.vcf` file containing the variants of interest
+		3. number of sequences to generate (integer)	* **Output**. 
+		1. A new `*.fasta` multiple sequence alignment file with variants randomy interpersed at the frequencies defined in the VCF file.
+	* **Example**:
+
+			generate_seqs_from_VCF.py reference.fasta variants.vcf 1000
+
 * `three_levels_diversity.R` (*manual analysis script*)
 	* **Description**. Input, wrangle, and bootstrap SNPGenie and OLGenie results for each gene and evolutionary level (between-taxa, between-host, and within-host) to produce the analysis underlying Figure 5.
 	* **Requirements**. R libraries boot, RColorBrewer, scales, tidyverse.
@@ -255,17 +258,14 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 		2. `between-host_FINAL.tsv`, final, bootstrapped, OLG-aware *π*<sub>N</sub>/*π*<sub>S</sub> results for between-host (GISAID) data
 		3. `within-host_FINAL.tsv`: final, bootstrapped, OLG-aware *π*<sub>N</sub>/*π*<sub>S</sub> results for within-host (SRR) data
 
-* `generate_seqs_from_VCF.py` (*command-line script*)
-	* **Description**. Script to generate a `.fasta` with randomly interspersed variants (from VCF), for use with <a target="_blank" href="https://github.com/chasewnelson/OLGenie">OLGenie</a> (Nelson et al. 2020) or any software that requires a multiple sequence alignment input and does not depend upon linkage.
-	* **Requirements**. Python packages Bio, os, random, re, sys
-	* **Input**. Three unnamed arguments in the following order: 
-		1. A `.fasta` file containing exactly one (1) reference sequence (*e.g.*, SARS-CoV-2 <a target="_blank" href="https://www.ncbi.nlm.nih.gov/nuccore/MN908947.3">Wuhan-Hu-1</a>)
-		2. a `.vcf` file containing the variants of interest
-		3. number of sequences to generate (integer)	* **Output**. 
-		1. A new `*.fasta` multiple sequence alignment file with variants randomy interpersed at the frequencies defined in the VCF file.
-	* **Example**:
-
-			generate_seqs_from_VCF.py reference.fasta variants.vcf 1000
+* `selection_vs_expression.R` (*manual analysis script*)
+	* **Description**. Compare selection (*π*<sub>N</sub>/*π*<sub>S</sub> and *d*<sub>N</sub>/*d*<sub>S</sub>) to expression level for Figure 5—figure supplement 1.
+	* **Requirements**. R libraries RColorBrewer, scales, tidyverse
+	* **Input**. 
+		1. `expression_data_by_gene_frame.tsv`, summary of expression estimates from both ribosome profiling and mass spectrometry for all gene detectable by mass spectrometry, by frame (source data of Figure 2B)
+		2. `selection_three_levels.tsv`, final *π*<sub>N</sub>/*π*<sub>S</sub> or *d*<sub>N</sub>/*d*<sub>S</sub> estimates underlying Figure 5 for each gene be evolutionary level (between-taxa, between-host, within-host) and region type (non-overlapping, overlapping).
+	* **Output**. 
+		1. Figures and statistics
 
 * `extract_seqs_by_timepoint.py` (*command-line script*)
 	* **Description**. Script to extract SARS-CoV-2 GISAID sequences by timepoint in a sliding window for analysis in Figure 5—figure supplement 2. Sliding window size (14 days) and step size (7 days) may be changed in the code. Day 0 is taken to be the earliest date on or following 2019/12/20; sequences sampled at earlier dates will be excluded.
@@ -312,7 +312,7 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 * `temporal_pi.R` (*manual analysis script*)
 	* **Description**. Calculate and plot nucleotide diversity (*π*) and location entropy as a function of time for Figure 5—figure supplement 2. The user must first use <a target="_blank" href="https://github.com/chasewnelson/SNPGenie">SNPGenie</a> (`snpgenie_within_group.pl`) to analyze the results of `extract_seqs_by_timepoint.py`, separately for each window.
 	* **Requirements**. R libraries boot, patchwork, RColorBrewer, scales, tidyverse
-	* **Input**. Three unnamed arguments in the following order: 
+	* **Input**.
 		1. `within_group_codon_results.tsv`, combined across timepoints
 		2. `timepoint_seq_IDs.txt`, a table with sequence IDs (column `ID`,  *i.e.*, EPI_*) for each time window (column `time_period`, *e.g.*, "0to14")
 		3. `gisaid_cov2020_acknowledgement_table.tsv`
