@@ -33,11 +33,13 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 		* `selection_vs_expression.R`
 		* `extract_seqs_by_timepoint.py`
 		* `extract_seqs_by_location.py`
+		* `extract_positions_by_timepoint.py`
 		* `temporal_pi.R`
 	* [**Figure 6**. Between-taxa sliding window analysis of natural selection on overlapping frames of *ORF3a*](#figure-6).
 		* `selection_sliding_windows.R`
 	* [**Figure 7**. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF](#figure-7).
-		* `extract_variable_columns_MSA.py`		* `extract_variable_columns_MSA_aa.py`
+		* `extract_variable_columns_MSA.py`
+		* `extract_variable_columns_MSA_aa.py`
 	* [**Figure 8**. High-frequency within-host mutations](#figure-8).
 		* **TODO: NEED ZAC'S SCRIPTS**
 		* `filter_vcf.py`
