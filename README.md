@@ -59,7 +59,7 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 
 ## <a name="supplementary-data"></a>Supplementary data
 
-**TODO** All supplementary are available at Zenodo. For easy access, the three most important supplementary data files are available in the `/data/` directory of this repository:
+**TODO** All supplementary are available at Zenodo. For easy access, the four most important supplementary data files are available in the `/data/` directory of this repository:
 
 1. `SARS-related-CoV_ALN.fasta`: whole-genome multiple sequence alignment of *n*=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus* (between-taxa analysis). See [manuscript](#citation) for details. Note that the pangolin-CoV GD/1 sequence has been masked as `N`, because GISAID permission is required for data access.
 
