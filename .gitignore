@@ -112,3 +112,9 @@ data_zotero/between-taxa_codon_OL_category.tsv
 data_zotero/between-host_SNPGenie.tsv
 data_zotero/between-host_OLGenie.tsv
 data_zotero/between-host_FINAL.tsv
+.Rhistory
+data_zotero/NC_045512_site_database_altA.tsv
+data_zotero/NC_045512_site_database_altC.tsv
+data_zotero/NC_045512_site_database_altG.tsv
+data_zotero/NC_045512_site_database_altT.tsv
+data_zotero/SARSCOV2_MAFFT_processed_variants_MAF0.02_ManualCheck_Fig7.xlsx

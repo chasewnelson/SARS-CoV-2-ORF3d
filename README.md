@@ -42,10 +42,14 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 	* [**Figure 7**. Pandemic spread of the EP+1 haplotype and the hitchhiking of *ORF3d*-LOF](#figure-7).
 		* `extract_variable_columns_MSA.py`
 		* `extract_variable_columns_MSA_aa.py`
+		* `Fig7.m`
+		* `Fig7b.m`
 	* [**Figure 8**. High-frequency within-host mutations](#figure-8).
 		* **TODO: NEED ZAC & APRIL SCRIPTS**
 		* `filter_vcf.py`
 		* `summarize_intrahost_by_site.py`
+		* `Fig8.m`
+		* `Fig8_supp1.m`
 	* [**Additional scripts**](#additional-scripts).
 		* **TODO: NEED ZAC & APRIL SCRIPTS**
 		* `extract_fasta_by_sites.pl`
@@ -359,6 +363,17 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 
 			extract_variable_columns_MSA_aa.py SARS-CoV-2_ORF3d_aa_ALN.fasta 0.02
 
+* `Fig7.m`
+	* **Input**
+		1. `SARSCOV2_MAFFT_processed_variants_MAF0.02_ManualCheck_Fig7.xlsx`, file from output, with manual correction of the entry with different ordering format of the collection date
+
+* `Fig7b.m`
+	* **Description**. Calculate the haplotype frequency trajectory and output figure.
+	* **Output** 
+		1. `Fig7b.jpg` --> input in Fig7.m
+		2. `Fig7a.jpg` (artwork, input in Fig7.m)
+		3. `Fig7.m` (figure collage): output Fig7.jpg
+
 
 ### <a name="figure-8"></a>Figure 8. High-frequency within-host mutations
 
@@ -389,6 +404,14 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 	* **Example**:
 
 			summarize_intrahost_by_site.py NC_045512.fasta NC_045512.gtf
+
+* `Fig8.m`
+	* **Description**. Calculate the frequency of alternative allele and partition by the type of mutation and output figure.
+	* **Input**
+		1. `NC_045512_site_database_altA.tsv`
+		2. `NC_045512_site_database_altC.tsv`
+		3. `NC_045512_site_database_altG.tsv`
+		4. `NC_045512_site_database_altT.tsv`
 
 
 ### <a name="additional-scripts"></a>Additional scripts
