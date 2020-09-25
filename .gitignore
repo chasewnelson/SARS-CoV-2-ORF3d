@@ -118,3 +118,4 @@ data_zotero/NC_045512_site_database_altC.tsv
 data_zotero/NC_045512_site_database_altG.tsv
 data_zotero/NC_045512_site_database_altT.tsv
 data_zotero/SARSCOV2_MAFFT_processed_variants_MAF0.02_ManualCheck_Fig7.xlsx
+data/SARS-related-CoV_ALN.gtf.txt

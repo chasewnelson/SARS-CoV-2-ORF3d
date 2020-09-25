@@ -85,8 +85,8 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 
 ### <a name="figure-1"></a>Figure 1. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members
 
-* `fig1B.bash` (*command-line script*)
-	* **Description**. Produces Figure1B using PyGenomeTracks.
+* `fig1b_genome_annotation.bash` (*command-line script*)
+	* **Description**. Produces Figure 1B using PyGenomeTracks.
 	* **Requirements**. PyGenomeTracks, Seqkit.
 	* **Input**. The following files need to be in the working directory: 
 		1. `SARS-related-CoV_ALN.fasta`: multiple alignment `.fasta` file of n=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus*. Note that the pangolin-CoV GD/1 sequence has been masked as `N`, because GISAID permission is required for data access.
@@ -98,7 +98,7 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 		1. `Fig1b.png`
 	* **Example**:
 
-			fig1B.bash
+			fig1b_genome_annotation.bash
 
 * `ORF_length.R` (*manual analysis script*)
 	* **Description**. Analyze the genome-wide ORF length results of the Schlub et al. (2018) codon permutation method and produce Figure 1—figure supplement 1.
@@ -125,14 +125,18 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 	* **Description**. Sliding window script to calculate proportion of reads in each frame for a specified read length and window size, separately for each condition (treatment/time).
 	* **Input**. Unnamed arguments in the following order: 
 		1. `INFILE_FRAMES`: file with condition metadata for samples (here, **riboseq_sample_metadata.tsv**). Columns should be in the following order: sample, condition, time, and treatment, where condition is the combination of time and treatment (see script and file)
-		2. `INFILE_READS`: file with read data. Columns described within script
+		2. `INFILE_READS`: file with read data; columns described within script; produced by concatenating the output of **TODO** at the command line as follows:
+
+				grep -E "\s" SRR*.txt | gsed -E s/_all/\\t/ | gsed -E s/ntd-reads_framed_zerobased.txt:/\\t/ | gsed -E s/\\s+/\\t/ > mapped_reads_by_readlength.tsv
+
+
 		3. `WIN_SIZE`: size of the sliding window (integer)
 		4. `READ_LEN`: length of reads to consider (integer)
 	* **Output**. 
 		1. Table in `.tsv` format giving the sum of reads in each frame for each condition and position (start of window).
 	* **Example**:
 
-			Rscript riboseq_sliding_window.R riboseq_sample_metadata.tsv mapped_reads_by_readlength_ALL.tsv 30 30
+			Rscript riboseq_sliding_window.R riboseq_sample_metadata.tsv mapped_reads_by_readlength.tsv 30 30
 
 * `riboseq.R` (*manual analysis script*)
 	* **Description**. Analyze all ribosome profiling data to generate for analyses underlying Figure 2 and its copious supplement.
