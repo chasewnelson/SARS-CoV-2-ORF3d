@@ -10,7 +10,7 @@ library(tidyverse)
 setwd("/Users/cwnelson88/scripts_NGS/SARS-CoV-2-ORF3d/")
 
 # Import, for frames 3a(ss11), 3d(ss12), and 3c(ss13) respectively; trailing columns are meaningless
-hydroph_data <- read_csv("data/hydrophobicity_profiles_ORF3a.csv")
+hydroph_data <- read_csv("data_zotero/hydrophobicity_profiles_ORF3a.csv")
 names(hydroph_data) <- c('position', 'ss11', 'ss12', 'ss13')
 hydroph_data
 

@@ -10,24 +10,19 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 * [Supplementary data](#supplementary-data)
 * [Supplementary scripts](#supplementary-scripts)
 	* [**Figure 1**. Gene repertoire and evolutionary relationships of *Severe acute respiratory syndrome-related coronavirus* species members](#figure-1).
-		* **TODO: NEED ZAC'S SCRIPTS**
 		* `fig1B.bash`
 		* `ORF_length.R`
 	* [**Figure 2**. Re-analysis of SARS-CoV-2 gene expression in publicly available ribosome profiling and mass spectrometry datasets](#figure-2).
-		* **TODO: NEED ZAC'S SCRIPTS**
 		* `aligned_fasta2haplotypes.pl`
 		* `riboseq_sliding_window.R`
 		* `riboseq.R`
 		* `mass-spec_vs_riboseq.R`
 	* [**Figure 3**. SARS-CoV-2 protein sequence properties](#figure-3).
-		* **TODO: NEED ZAC'S SCRIPTS**
 		* `generate_random_protein.py`
 		* `tally_epitope_coverage.py`
 		* `epitope_MHCI.R`
 		* `epitope_MHCII.R`
 		* `hydrophobicity_profiles_ORF3a.R`
-	* [**Figure 4**. Amino acid variation in proteins encoded by genes overlapping *ORF3a* in viruses of the species *Severe acute respiratory syndrome-related coronavirus*](#figure-4).
-		* **TODO: NEED ZAC'S SCRIPTS**
 	* [**Figure 5**. Natural selection analysis of viral nucleotide differences at three hierarchical evolutionary levels](#figure-5).
 		* `SARS-CoV-2_locate_genes.pl`
 		* `generate_seqs_from_VCF.py`
@@ -45,13 +40,11 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 		* `Fig7.m`
 		* `Fig7b.m`
 	* [**Figure 8**. High-frequency within-host mutations](#figure-8).
-		* **TODO: NEED ZAC & APRIL SCRIPTS**
 		* `filter_vcf.py`
 		* `summarize_intrahost_by_site.py`
 		* `Fig8.m`
 		* `Fig8_supp1.m`
 	* [**Additional scripts**](#additional-scripts).
-		* **TODO: NEED ZAC & APRIL SCRIPTS**
 		* `extract_fasta_by_sites.pl`
 		* `extract_seq_subset.py`
 		* `translate_nt_seq_file.pl`
@@ -63,7 +56,9 @@ Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
 
 ## <a name="supplementary-data"></a>Supplementary data
 
-**TODO** All supplementary are available at Zenodo. For easy access, the four most important supplementary data files are available in the `/data/` directory of this repository:
+All supplementary are available at <a target="_blank" href="https://zenodo.org/record/4052729">Zenodo</a> under record ID 4052729.
+
+For easy access, the four most important supplementary data files are available in the `/data/` directory of this repository:
 
 1. `SARS-related-CoV_ALN.fasta`: whole-genome multiple sequence alignment of *n*=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus* (between-taxa analysis). See [manuscript](#citation) for details. Note that the pangolin-CoV GD/1 sequence has been masked as `N`, because GISAID permission is required for data access.
 
@@ -91,9 +86,9 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 	* **Input**. The following files need to be in the working directory: 
 		1. `SARS-related-CoV_ALN.fasta`: multiple alignment `.fasta` file of n=21 genomes of the species *Severe acute respiratory syndrome-related coronavirus*. Note that the pangolin-CoV GD/1 sequence has been masked as `N`, because GISAID permission is required for data access.
 		2. `SARS-related-CoV_ALN.gtf`: Gene Transfer Format (GTF) file giving gene positions within `SARS-related-CoV_ALN.fasta`.
-		3. `sbc_rename2.nw`: Newick tree for sarbecovirus alignment **!!TODO: Zac, I need this <--**
-		4. `parameters_input.txt` **!!TODO: Zac, I need this <--**
-		5. `parameters_input2.txt` **!!TODO: Zac, I need this <--**
+		3. `sbc_rename2.nw`: Newick tree for sarbecovirus alignment
+		4. `parameters_input.txt`
+		5. `parameters_input2.txt`
 	* **Output**. 
 		1. `Fig1b.png`
 	* **Example**:
@@ -125,7 +120,7 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 	* **Description**. Sliding window script to calculate proportion of reads in each frame for a specified read length and window size, separately for each condition (treatment/time).
 	* **Input**. Unnamed arguments in the following order: 
 		1. `INFILE_FRAMES`: file with condition metadata for samples (here, **riboseq_sample_metadata.tsv**). Columns should be in the following order: sample, condition, time, and treatment, where condition is the combination of time and treatment (see script and file)
-		2. `INFILE_READS`: file with read data; columns described within script; produced by concatenating the output of **TODO** at the command line as follows:
+		2. `INFILE_READS`: file with read data; columns described within script; produced by concatenating the output of ribosome profiling read mapping at the command line as follows:
 
 				grep -E "\s" SRR*.txt | gsed -E s/_all/\\t/ | gsed -E s/ntd-reads_framed_zerobased.txt:/\\t/ | gsed -E s/\\s+/\\t/ > mapped_reads_by_readlength.tsv
 
@@ -271,7 +266,7 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 	* **Requirements**. R libraries RColorBrewer, scales, tidyverse
 	* **Input**. 
 		1. `expression_data_by_gene_frame.tsv`, summary of expression estimates from both ribosome profiling and mass spectrometry for all gene detectable by mass spectrometry, by frame (source data of Figure 2B)
-		2. `selection_three_levels.tsv`, final *π*<sub>N</sub>/*π*<sub>S</sub> or *d*<sub>N</sub>/*d*<sub>S</sub> estimates underlying Figure 5 for each gene be evolutionary level (between-taxa, between-host, within-host) and region type (non-overlapping, overlapping).
+		2. `selection_three_levels.txt`, final *π*<sub>N</sub>/*π*<sub>S</sub> or *d*<sub>N</sub>/*d*<sub>S</sub> estimates underlying Figure 5 for each gene be evolutionary level (between-taxa, between-host, within-host) and region type (non-overlapping, overlapping).
 	* **Output**. 
 		1. Figures and statistics
 
@@ -336,11 +331,11 @@ Scripts are arranged by Figure, and therefore by analysis. Although we are not a
 	* **Description**. Visualize overlapping gene *d*<sub>N</sub>/*d*<sub>S</sub>, calculated with OLGenie, in sliding windows for pairs of taxa shown in Figure 6 and supplement
 	* **Requirements**. R libraries boot, RColorBrewer, tidyverse.
 	* **Input**.
-		1. `SARS-CoV-2-ref_ORF3a_ss12_windows.tsv`, OLGenie (*d*<sub>NN</sub>/*d*<sub>NS</sub>) results in a sliding window (window size=50 codons, step size=1 codon) for SARS-CoV-2 against each other taxon (every pair) for *ORF3a* reading frame ss12 (i.e., the frame of *ORF3d*)
-		2. `SARS-CoV-2-ref_ORF3a_ss12_windows_pangolin.tsv`, OLGenie results in a sliding window for SARS-CoV-2 against pangolin GX/P5L, *i.e.*, the only other taxon in which *ORF3d* is intact
+		1. `SARS-CoV-2-ref_ORF3a_ss12_windows_prepangolin.txt`, OLGenie (*d*<sub>NN</sub>/*d*<sub>NS</sub>) results in a sliding window (window size=50 codons, step size=1 codon) for SARS-CoV-2 against each other taxon (every pair) for *ORF3a* reading frame ss12 (i.e., the frame of *ORF3d*)
+		2. `SARS-CoV-2-ref_ORF3a_ss12_windows_pangolin.txt`, updated OLGenie results in a sliding window for SARS-CoV-2 against pangolin GX/P5L, *i.e.*, the only other taxon in which *ORF3d* is intact, meant to replace the data in **SARS-CoV-2-ref_ORF3a_ss12_windows.txt**
 		3. `SARS-CoV-2-ref_N_ss13_windows.tsv`, OLGenie results in a sliding window for SARS-CoV-2 against each other taxon (every pair) for *N* reading frame ss13 (i.e., the frame of *ORF9b* and *ORF9c*)
-		4. `SARS-ref_ORF3a_ss13_windows.tsv`, OLGenie results in a sliding window for SARS-CoV against each other taxon (every pair) for *ORF3a* reading frame ss13 (i.e., the frame of *ORF3c* and *ORF3b*)
-		5. `SARS-ref_N_ss13_windows.tsv`, OLGenie results in a sliding window for SARS-CoV against each other taxon (every pair) for *N* reading frame ss13 (i.e., the frame of *ORF9b* and *ORF9c*)
+		4. `SARS-CoV-ref_ORF3a_ss13_windows.txt`, OLGenie results in a sliding window for SARS-CoV against each other taxon (every pair) for *ORF3a* reading frame ss13 (i.e., the frame of *ORF3c* and *ORF3b*)
+		5. `SARS-CoV-ref_N_ss13_windows.txt`, OLGenie results in a sliding window for SARS-CoV against each other taxon (every pair) for *N* reading frame ss13 (i.e., the frame of *ORF9b* and *ORF9c*)
 	* **Output**. 
 		1. Figures and statistics
 

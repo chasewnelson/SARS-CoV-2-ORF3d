@@ -84,10 +84,12 @@ pair_name_converter <- c("Bat SARS-like CoV (BtKY72/2007)",
 # Only use (a) 3a or (b) N, NOT BOTH
 
 # (a) 3a/ss12 
-data_subset <- read_tsv("data/SARS-CoV-2-ref_ORF3a_ss12_windows.tsv") # 5,480 x 43
+data_subset <- read_tsv("data_zotero/SARS-CoV-2-ref_ORF3a_ss12_windows_prepangolin.txt") # 5,480 x 43
 data_subset <- filter(data_subset, pair != "SARSCOV2_vs_EPI_ISL_410540") # 5,206 x 43
-data_subset_P5L <- read_tsv("data/SARS-CoV-2-ref_ORF3a_ss12_windows_pangolin.tsv") # 274 x 43
+data_subset_P5L <- read_tsv("data_zotero/SARS-CoV-2-ref_ORF3a_ss12_windows_pangolin.txt") # 274 x 43
 data_subset <- rbind(data_subset, data_subset_P5L) # 5,480 x 43
+#write_tsv(data_subset, "/Users/cwnelson88/Desktop/SARS-CoV-2/eLife_revision/Figures/Fig 6 - Sliding Window Heatmap/SARS-CoV-2-ref_ORF3a_ss12_windows.txt")
+
 
 # (b) N/ss13
 #data_subset <- read_tsv("data/SARS-CoV-2-ref_N_ss13_windows.tsv")
