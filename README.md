@@ -2,7 +2,11 @@
 
 # SARS-CoV-2 *ORF3d*
 
-Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*.
+Supplementary scripts for Nelson et al. (2020) paper on SARS-CoV-2 *ORF3d*:
+
+
+Nelson CW, Ardern Z, Goldberg TL, Meng C, Kuo C-H, Ludwig C, Kolokotronis S-O, Wei X. 2020. 
+<a target="_blank" href="https://elifesciences.org/articles/59633">Dynamically evolving novel overlapping gene as a factor in the SARS-CoV-2 pandemic.</a> *eLife* **9**: e59633. DOI: 10.7554/eLife.59633
 
 
 ## <a name="contents"></a>Contents
@@ -459,7 +463,8 @@ This work was supported by a Postdoctoral Research Fellowship from Academia Sini
 
 When using this software, please refer to and cite:
 
->Nelson CW, Ardern Z, Goldberg TL, Meng C, Kuo C-H, Ludwig C, Kolokotronis S-O, Wei X. 2020. Dynamically evolving novel overlapping gene as a factor in the SARS-CoV-2 pandemic. *eLife*, in review. bioRxiv doi: <a target="_blank" rel="noopener noreferrer" href="https://doi.org/10.1101/2020.05.21.109280">https://doi.org/10.1101/2020.05.21.109280</a>
+>Nelson CW, Ardern Z, Goldberg TL, Meng C, Kuo C-H, Ludwig C, Kolokotronis S-O, Wei X. 2020. 
+<a target="_blank" href="https://elifesciences.org/articles/59633">Dynamically evolving novel overlapping gene as a factor in the SARS-CoV-2 pandemic.</a> *eLife* **9**: e59633. DOI: 10.7554/eLife.59633
 
 and this page:
 
@@ -481,5 +486,7 @@ Other queries should be addressed to the corresponding authors:
 
 * Finkel Y, Mizrahi O, Nachshon A, Weingarten-Gabbay S, Morgenstern D, Yahalom-Ronen Y, Tamir H, Achdout H, Stein D, Israeli O, Adi B-D, Melamed S, Weiss S, Israely T, Paran N, Schwartz M, Stern-Ginossar N. 2020. <a target="_blank" href="https://www.nature.com/articles/s41586-020-2739-1">The coding capacity of SARS-CoV-2</a>. *Nature*, **in press**, doi: https://doi.org/10.1038/s41586-020-2739-1
 * Nelson CW, Ardern Z, Wei X. 2020. <a target="_blank" href="https://academic.oup.com/mbe/article/37/8/2440/5815567">OLGenie: estimating natural selection to predict functional overlapping genes</a>. *Molecular Biology and Evolution* **37**(8):2440–2449. doi: https://doi.org/10.1093/molbev/msaa087
+* Nelson CW, Ardern Z, Goldberg TL, Meng C, Kuo C-H, Ludwig C, Kolokotronis S-O, Wei X. 2020. 
+<a target="_blank" href="https://elifesciences.org/articles/59633">Dynamically evolving novel overlapping gene as a factor in the SARS-CoV-2 pandemic.</a> *eLife* **9**: e59633. doi: 10.7554/eLife.59633
 * Nelson CW, Moncla LH, Hughes AL. 2015. <a target="_blank" href="https://academic.oup.com/bioinformatics/article/31/22/3709/241742">SNPGenie: estimating evolutionary parameters to detect natural selection using pooled next-generation sequencing data</a>. *Bioinformatics* **31**(22):3709–3711. doi: https://doi.org/10.1093/bioinformatics/btv449
 * Schlub TE, Buchmann JP, Holmes EC. 2018. <a target="_blank" href="https://academic.oup.com/mbe/article/35/10/2572/5067730">A simple method to detect candidate overlapping genes in viruses using single genome sequences</a>. *Molecular Biology and Evolution* **35**(10):2572–2581. doi: https://doi.org/10.1093/molbev/msy155
